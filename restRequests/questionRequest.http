@@ -1,0 +1,57 @@
+###
+GET http://localhost:{{application-port}}/check-ai
+Accept: application/json
+
+###
+POST http://localhost:{{application-port}}/ask
+Accept: application/json
+Content-Type: application/json
+
+{
+    "question": "Who was the first person to climb Mount Everest?"
+}
+
+###
+POST http://localhost:{{application-port}}/capital
+Accept: application/json
+Content-Type: application/json
+
+{
+    "countryName": "Switzerland"
+}
+
+###
+POST http://localhost:{{application-port}}/capitalResponseInJson
+Accept: application/json
+Content-Type: application/json
+
+{
+    "countryName": "Switzerland"
+}
+
+###
+POST http://localhost:{{application-port}}/capitalResponseInJsonWithParser
+Accept: application/json
+Content-Type: application/json
+
+{
+    "countryName": "Switzerland"
+}
+
+###
+POST http://localhost:{{application-port}}/capitalWithInfo
+Accept: application/json
+Content-Type: application/json
+
+{
+    "countryName": "Switzerland"
+}
+
+###
+POST http://localhost:{{application-port}}/capitalWithInfWithParser
+Accept: application/json
+Content-Type: application/json
+
+{
+    "countryName": "Switzerland"
+}
