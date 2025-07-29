@@ -34,7 +34,7 @@ class AITokenUsageIT {
 
     @BeforeAll
     static void setup() throws IOException {
-        Path envFile = Paths.get(".run", ".openapi-key-env");
+        Path envFile = Paths.get(".run", ".deepseekapi-key-env");
         if (Files.exists(envFile)) {
             List<String> lines = Files.readAllLines(envFile);
             for (String line : lines) {
@@ -44,7 +44,7 @@ class AITokenUsageIT {
                 }
             }
         } else {
-            log.info("Warning: .openapi-key-env file not found. Ensure it exists or set OPENAI_API_KEY manually.");
+            log.info("Warning: .deepseekapi-key-env file not found. Ensure it exists or set DEEPSEEK_API_KEY manually.");
         }
     }
 
@@ -65,9 +65,9 @@ class AITokenUsageIT {
             total
         );
 
-        assertEquals(11.0, input);
-        assertThat(output, allOf(greaterThanOrEqualTo(7.0), lessThanOrEqualTo(8.0)));
-        assertThat(total, allOf(greaterThanOrEqualTo(17.0), lessThanOrEqualTo(19.0)));
+        assertEquals(10.0, input);
+        assertThat(output, allOf(greaterThanOrEqualTo(2.0), lessThanOrEqualTo(8.0)));
+        assertThat(total, allOf(greaterThanOrEqualTo(12.0), lessThanOrEqualTo(19.0)));
     }
 
 

@@ -2,7 +2,7 @@ global:
   timezone: Europe/Zurich
   timezonePath: /etc/localtime
   springDebug: false
-  namespace: spring-6-ai-intro
+  namespace: spring-ai-prompt-engineering
 
 replicaCount: 1
 
@@ -53,7 +53,7 @@ docker:
 
 serviceAccount:
   create: false
-  name: spring-6-ai-intro-service-account
+  name: spring-ai-prompt-engineering-service-account
 
 ingress:
   enabled: false

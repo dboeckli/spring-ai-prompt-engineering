@@ -76,12 +76,12 @@ jobs:
           APP_VERSION: ${{ inputs.version }}
           APPLICATION_NAME: ${{ inputs.application-name }}
           NAMESPACE: ${{ inputs.namespace }}
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
           DOCKER_USER: ${{ vars.DOCKER_USER }}
           DOCKER_TOKEN: ${{ secrets.DOCKER_ACCESS_TOKEN }}
         run: |
           # Check if required parameters are set
-          required_params=("OPENAI_API_KEY" "DOCKER_USER" "DOCKER_TOKEN")
+          required_params=("DEEPSEEK_API_KEY" "DOCKER_USER" "DOCKER_TOKEN")
           for param in "${required_params[@]}"; do
             if [ -z "${!param}" ]; then
               echo "::error::Required parameter $param is not set"
@@ -89,9 +89,9 @@ jobs:
             fi
           done
           
-          # Verify if OPENAI_API_KEY is base64 encoded
-          if echo "$OPENAI_API_KEY" | base64 -d > /dev/null 2>&1; then
-            echo "::error::OPENAI_API_KEY is base64 encoded. Aborting deployment."
+          # Verify if DEEPSEEK_API_KEY is base64 encoded
+          if echo "$DEEPSEEK_API_KEY" | base64 -d > /dev/null 2>&1; then
+            echo "::error::DEEPSEEK_API_KEY is base64 encoded. Aborting deployment."
             exit 1
           fi
           
@@ -99,7 +99,7 @@ jobs:
           echo "Deploying Application $APPLICATION_NAME: $APP_VERSION"
           helm upgrade --install $APPLICATION_NAME ./$APPLICATION_NAME \
           --set image.tag=${APP_VERSION} \
-          --set openai.apiKey="${OPENAI_API_KEY}" \
+          --set openai.apiKey="${DEEPSEEK_API_KEY}" \
           --set docker.dockerUser="${DOCKER_USER}" \
           --set docker.dockerToken="${DOCKER_TOKEN}" \
           --set serviceAccount.create=true \

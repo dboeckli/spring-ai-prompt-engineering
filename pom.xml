@@ -10,11 +10,11 @@
     </parent>
     
     <groupId>guru.springframework</groupId>
-    <artifactId>spring-6-ai-intro</artifactId>
+    <artifactId>spring-ai-prompt-engineering</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 
     <name>${project.artifactId}</name>
-    <description>spring-6-ai-intro</description>
+    <description>spring-ai-prompt-engineering</description>
 
     <organization>
         <name>dboeckli</name>
@@ -159,7 +159,7 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.ai</groupId>
-            <artifactId>spring-ai-starter-model-openai</artifactId>
+            <artifactId>spring-ai-starter-model-deepseek</artifactId>
         </dependency>
 
         <dependency>

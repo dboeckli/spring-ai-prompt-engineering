@@ -10,6 +10,8 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class AiResponseFormatter {
+
+    public static final String INPUT_CHECK_AI = "2+2? Kurz.";
     public static String formatAiCheckResponse(ChatResponse chatResponse, String input) throws JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.registerModule(new JavaTimeModule());

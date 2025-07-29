@@ -2,9 +2,9 @@
   <configuration default="false" name="Spring6AiIntroApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
     <option name="ACTIVE_PROFILES" value="local" />
     <option name="envFilePaths">
-      <option value="$PROJECT_DIR$/.run/.openapi-key-env" />
+      <option value="$PROJECT_DIR$/.run/.deepseekapi-key-env" />
     </option>
-    <module name="spring-6-ai-intro" />
+    <module name="spring-ai-prompt-engineering" />
     <selectedOptions>
       <option name="environmentVariables" />
     </selectedOptions>

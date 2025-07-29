@@ -33,7 +33,7 @@ class ActuatorInfoIT {
 
     @BeforeAll
     static void setup() throws IOException {
-        Path envFile = Paths.get(".run", ".openapi-key-env");
+        Path envFile = Paths.get(".run", ".deepseekapi-key-env");
         if (Files.exists(envFile)) {
             List<String> lines = Files.readAllLines(envFile);
             for (String line : lines) {
@@ -43,7 +43,7 @@ class ActuatorInfoIT {
                 }
             }
         } else {
-            log.info("Warning: .openapi-key-env file not found. Ensure it exists or set OPENAI_API_KEY manually.");
+            log.info("Warning: .deepseekapi-key-env file not found. Ensure it exists or set DEEPSEEK_API_KEY manually.");
         }
     }
 
@@ -56,7 +56,7 @@ class ActuatorInfoIT {
             .andExpect(jsonPath("$.build.javaVersion").value("21"))
             .andExpect(jsonPath("$.build.commit-id").isString())
             .andExpect(jsonPath("$.build.javaVendor").isString())
-            .andExpect(jsonPath("$.build.artifact").value("spring-6-ai-intro"))
+            .andExpect(jsonPath("$.build.artifact").value("spring-ai-prompt-engineering"))
             .andExpect(jsonPath("$.build.group").value("guru.springframework"))
             .andReturn();
         

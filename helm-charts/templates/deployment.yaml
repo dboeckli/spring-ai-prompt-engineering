@@ -29,11 +29,11 @@ spec:
               value: "{{ .Values.global.timezone }}"
             - name: SPRING_PROFILES_ACTIVE
               value: {{ .Values.spring.profiles.active | default "local" }}
-            - name: OPENAI_API_KEY
+            - name: DEEPSEEK_API_KEY
               valueFrom:
                 secretKeyRef:
                   name: openai-api-secret
-                  key: OPENAI_API_KEY
+                  key: DEEPSEEK_API_KEY
           ports:
             - name: http
               containerPort: {{ .Values.service.targetPort }}
