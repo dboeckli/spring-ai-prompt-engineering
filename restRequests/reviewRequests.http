@@ -1,0 +1,11 @@
+###
+GET http://localhost:{{application-port}}/api/review/create-review
+Accept: application/json
+
+###
+GET http://localhost:{{application-port}}/api/review/create-reviews
+Accept: application/json
+
+###
+GET http://localhost:{{application-port}}/api/review/create-reviews-extract
+Accept: application/json

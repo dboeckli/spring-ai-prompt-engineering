@@ -2,6 +2,7 @@ package guru.springframework.spring6aiintro.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import guru.springframework.spring6aiintro.service.OpenAIService;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -13,6 +14,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.openMocks;
 
+@Slf4j
 class QuestionControllerTest {
 
     @Mock
@@ -23,7 +25,11 @@ class QuestionControllerTest {
 
     @BeforeEach
     void setUp() {
-        openMocks(this);
+        try (AutoCloseable ignored = openMocks(this)) {
+            log.info("Setting up mocks for QuestionControllerTest");
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to open mocks", e);
+        }
     }
 
     @Test

@@ -25,9 +25,11 @@ class ChatControllerTest {
     private ChatController chatController;
 
     @BeforeEach
-    void setUp() throws Exception {
-        try (var ignored = openMocks(this)) {
-            log.info("Mock setup complete");
+    void setUp() {
+        try (AutoCloseable ignored = openMocks(this)) {
+            log.info("Setting up mocks for QuestionControllerTest");
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to open mocks", e);
         }
     }
 
