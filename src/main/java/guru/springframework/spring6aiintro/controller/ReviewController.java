@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import static guru.springframework.spring6aiintro.constants.ReviewConstants.*;
+import static guru.springframework.spring6aiintro.controller.constants.ReviewConstants.*;
 
 @RestController
 @Slf4j

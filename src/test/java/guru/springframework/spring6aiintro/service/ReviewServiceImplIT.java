@@ -14,7 +14,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
-import static guru.springframework.spring6aiintro.constants.ReviewConstants.*;
+import static guru.springframework.spring6aiintro.controller.constants.ReviewConstants.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.*;

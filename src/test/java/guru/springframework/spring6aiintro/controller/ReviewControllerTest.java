@@ -13,7 +13,7 @@ import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
-import static guru.springframework.spring6aiintro.constants.ReviewConstants.*;
+import static guru.springframework.spring6aiintro.controller.constants.ReviewConstants.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;

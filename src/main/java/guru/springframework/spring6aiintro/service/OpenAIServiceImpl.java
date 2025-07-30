@@ -16,7 +16,7 @@ import static guru.springframework.spring6aiintro.service.AiResponseFormatter.IN
 @RequiredArgsConstructor
 @Slf4j
 public class OpenAIServiceImpl implements OpenAIService {
-    
+
     private final ChatModel chatModel;
 
     @Override

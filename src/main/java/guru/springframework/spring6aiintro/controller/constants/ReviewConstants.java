@@ -1,4 +1,4 @@
-package guru.springframework.spring6aiintro.constants;
+package guru.springframework.spring6aiintro.controller.constants;
 
 import lombok.experimental.UtilityClass;
 
@@ -101,20 +101,20 @@ public final class ReviewConstants {
         Review: ```{review1}```
         
         Remember: Your response MUST NOT exceed 30 words under any circumstances.
-    
+        
         """;
 
     public final static String REVIEW_PROMPT_3 = """
         Your task is to generate a summary for a book from reviews. The summary will be used for a
         web page selling the book. You will be given 3 reviews. Create the summary based on the reviews and
         include information in the summary from all 3 reviews.
-    
+        
         Summarize the reviews below, delimited by triple backticks, in at most 200 words.
-    
+        
         Review: ```{review1}```
-    
+        
         Review 2: ```{review2}```
-    
+        
         Review 3: ```{review3}```
         """;
 
@@ -122,13 +122,13 @@ public final class ReviewConstants {
         Your task is to extract a summary for a book from reviews. The summary will be used for a
         web page selling the book. You will be given 3 reviews. Create the summary based on the reviews and
         include information in the summary from all 3 reviews.
-    
+        
         Summarize the reviews below, delimited by triple backticks, in at most 200 words.
-    
+        
         Review: ```{review1}```
-    
+        
         Review 2: ```{review2}```
-    
+        
         Review 3: ```{review3}```
         """;
 }
