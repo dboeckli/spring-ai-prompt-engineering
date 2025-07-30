@@ -107,31 +107,35 @@ public final class ReviewConstants {
         
         """.formatted(MAX_SUMMARY_REVIEW_PROMPT_WORDS, MAX_SUMMARY_REVIEW_PROMPT_WORDS);
 
+    public final static int MAX_SUMMARY_REVIEW_PROMPT_3_WORDS = 200;
+
     public final static String REVIEW_PROMPT_3 = """
         Your task is to generate a summary for a book from reviews. The summary will be used for a
         web page selling the book. You will be given 3 reviews. Create the summary based on the reviews and
         include information in the summary from all 3 reviews.
         
-        Summarize the reviews below, delimited by triple backticks, in at most 200 words.
+        Summarize the reviews below, delimited by triple backticks, in at most %d words.
         
         Review: ```{review1}```
         
         Review 2: ```{review2}```
         
         Review 3: ```{review3}```
-        """;
+        """.formatted(MAX_SUMMARY_REVIEW_PROMPT_3_WORDS);
+
+    public final static int MAX_SUMMARY_REVIEW_PROMPT_4_WORDS = 200;
 
     public final static String REVIEW_PROMPT_4 = """
         Your task is to extract a summary for a book from reviews. The summary will be used for a
         web page selling the book. You will be given 3 reviews. Create the summary based on the reviews and
         include information in the summary from all 3 reviews.
         
-        Summarize the reviews below, delimited by triple backticks, in at most 200 words.
+        Summarize the reviews below, delimited by triple backticks, in at most %d words.
         
         Review: ```{review1}```
         
         Review 2: ```{review2}```
         
         Review 3: ```{review3}```
-        """;
+        """.formatted(MAX_SUMMARY_REVIEW_PROMPT_4_WORDS);
 }
