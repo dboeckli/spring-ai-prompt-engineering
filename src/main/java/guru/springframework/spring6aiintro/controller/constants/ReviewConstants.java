@@ -121,7 +121,10 @@ public final class ReviewConstants {
         Review 2: ```{review2}```
         
         Review 3: ```{review3}```
-        """.formatted(MAX_SUMMARY_REVIEW_PROMPT_3_WORDS);
+        
+        CRITICAL: Your response MUST NOT exceed %d words under ANY circumstances. If your summary is longer, shorten it.
+        
+        """.formatted(MAX_SUMMARY_REVIEW_PROMPT_3_WORDS, MAX_SUMMARY_REVIEW_PROMPT_3_WORDS);
 
     public final static int MAX_SUMMARY_REVIEW_PROMPT_4_WORDS = 200;
 
@@ -137,5 +140,8 @@ public final class ReviewConstants {
         Review 2: ```{review2}```
         
         Review 3: ```{review3}```
-        """.formatted(MAX_SUMMARY_REVIEW_PROMPT_4_WORDS);
+        
+        CRITICAL: Your response MUST NOT exceed %d words under ANY circumstances. If your summary is longer, shorten it.
+        
+        """.formatted(MAX_SUMMARY_REVIEW_PROMPT_4_WORDS, MAX_SUMMARY_REVIEW_PROMPT_4_WORDS);
 }
