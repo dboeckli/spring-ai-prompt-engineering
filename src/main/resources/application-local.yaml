@@ -11,6 +11,9 @@ spring:
         api-key: ${DEEPSEEK_API_KEY}
         options:
           model: deepseek-coder
+          temperature: 0.0
+          max-tokens: 2000
+
     chat:
       client:
         enabled: true
