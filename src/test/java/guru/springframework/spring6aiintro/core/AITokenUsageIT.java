@@ -65,7 +65,7 @@ class AITokenUsageIT {
             total
         );
 
-        double expectedInput = 10.0;
+        double expectedInput = 9.0;
         double expectedMinOutput = 1.0;
         double expectedMaxOutput = 8.0;
         double expectedMinTotal = expectedInput + expectedMinOutput;

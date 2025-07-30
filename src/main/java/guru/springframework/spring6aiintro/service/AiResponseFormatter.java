@@ -14,7 +14,7 @@ import java.util.Map;
 @UtilityClass
 public final class AiResponseFormatter {
 
-    public static final String INPUT_CHECK_AI = "2+2? Kurz.";
+    public static final String INPUT_CHECK_AI = "2+2? Short.";
     public static String formatAiCheckResponse(ChatResponse chatResponse, String input) throws JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.registerModule(new JavaTimeModule());
