@@ -58,7 +58,7 @@ class ReviewServiceImplIT {
         assertAll("Review Response Validierung",
 
             () -> assertThat("Response should contain at most 30 words",
-                words.length, lessThanOrEqualTo(31)),
+                words.length, lessThanOrEqualTo(MAX_SUMMARY_REVIEW_PROMPT_WORDS + 1)),
 
             () -> assertThat("Response should not contain backticks",
                 response, not(containsString("```"))),

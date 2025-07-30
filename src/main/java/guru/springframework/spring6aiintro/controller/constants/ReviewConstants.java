@@ -88,21 +88,24 @@ public final class ReviewConstants {
         Anyhow, reading this well written book provides insight to one of the most productive people of our time.
         I recommend it highly.""";
 
+    public final static int MAX_SUMMARY_REVIEW_PROMPT_WORDS = 30;
+
     public final static String REVIEW_PROMPT = """
         Your task is to generate a short summary for a book from an ecommerce site. The summary will be used for a
         web page selling the book.
         
         IMPORTANT RULES:
-        1. The summary MUST be EXACTLY 30 words or LESS. This is a strict requirement.
+        1. The summary MUST be EXACTLY %d words or LESS. This is a STRICT and CRITICAL requirement.
         2. Include the book title and author name.
         3. Focus on the most important aspects only.
         4. Use concise language.
+        5. Count your words carefully before submitting.
         
         Review: ```{review1}```
         
-        Remember: Your response MUST NOT exceed 30 words under any circumstances.
+        CRITICAL: Your response MUST NOT exceed %d words under ANY circumstances. If your summary is longer, shorten it.
         
-        """;
+        """.formatted(MAX_SUMMARY_REVIEW_PROMPT_WORDS, MAX_SUMMARY_REVIEW_PROMPT_WORDS);
 
     public final static String REVIEW_PROMPT_3 = """
         Your task is to generate a summary for a book from reviews. The summary will be used for a
