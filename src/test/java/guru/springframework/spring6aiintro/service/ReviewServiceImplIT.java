@@ -37,7 +37,7 @@ class ReviewServiceImplIT {
 
         assertAll("Review Response Validierung",
 
-            () -> assertThat("Response should contain at most 30 words",
+            () -> assertThat("Response should contain at most 30 words. Response was: " + response,
                 words.length, lessThanOrEqualTo(MAX_SUMMARY_REVIEW_PROMPT_WORDS + 2)),
 
             () -> assertThat("Response should not contain backticks",
@@ -70,7 +70,7 @@ class ReviewServiceImplIT {
 
         assertAll("Review Response Validierung",
             () -> assertNotNull(response, "Response should not be null"),
-            () -> assertThat("Response should contain at most 200 words",
+            () -> assertThat("Response should contain at most 200 words. Response was: " + response,
                 response.split("\\s+").length, lessThanOrEqualTo(MAX_SUMMARY_REVIEW_PROMPT_3_WORDS + 2)),
             () -> assertThat("Response should not contain review markers",
                 response, not(containsString("Review"))),
@@ -98,7 +98,7 @@ class ReviewServiceImplIT {
 
         assertAll("Review Response Validierung",
             () -> assertNotNull(response, "Response should not be null"),
-            () -> assertThat("Response should contain at most 200 words",
+            () -> assertThat("Response should contain at most 200 words. Response was: " + response,
                 response.split("\\s+").length, lessThanOrEqualTo(MAX_SUMMARY_REVIEW_PROMPT_4_WORDS + 2)),
             () -> assertThat("Response should be well-formatted",
                 response, not(containsString("```"))),
