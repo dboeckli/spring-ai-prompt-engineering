@@ -52,14 +52,14 @@ class ActuatorInfoIT {
         MvcResult result = mockMvc.perform(get("/actuator/info"))
             .andExpect(status().isOk())
             .andExpect(jsonPath("$.git.commit.id").isString())
-            
+
             .andExpect(jsonPath("$.build.javaVersion").value("21"))
             .andExpect(jsonPath("$.build.commit-id").isString())
             .andExpect(jsonPath("$.build.javaVendor").isString())
             .andExpect(jsonPath("$.build.artifact").value("spring-ai-prompt-engineering"))
             .andExpect(jsonPath("$.build.group").value("guru.springframework"))
             .andReturn();
-        
+
         log.info("Response: {}", result.getResponse().getContentAsString());
     }
 
@@ -72,5 +72,5 @@ class ActuatorInfoIT {
 
         log.info("Response: {}", result.getResponse().getContentAsString());
     }
-    
+
 }

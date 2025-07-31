@@ -8,7 +8,8 @@
 
 $cred = Get-StoredCredential -Target 'DEEPSEEK_API_KEY'
 
-if ($cred -and $cred.Password) {
+if ($cred -and $cred.Password)
+{
     $token = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto(
         [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($cred.Password)
     )
@@ -17,6 +18,8 @@ if ($cred -and $cred.Password) {
 
     Set-Content -Path "..\.deepseekapi-key-env" -Value "DEEPSEEK_API_KEY=$token"
     Write-Host "Env .deepseekapi-key-env file written."
-} else {
+}
+else
+{
     Write-Warning "Credential 'DEEPSEEK_API_KEY' nicht gefunden oder leer."
 }

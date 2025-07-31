@@ -54,7 +54,8 @@ class ChatControllerTest {
     void checkAi_HandlesException() throws JsonProcessingException {
         // Given
         String errorMessage = "JSON Verarbeitungsfehler";
-        when(chatService.checkAi()).thenThrow(new JsonProcessingException(errorMessage) {});
+        when(chatService.checkAi()).thenThrow(new JsonProcessingException(errorMessage) {
+        });
 
         // When
         ResponseEntity<String> responseEntity = chatController.checkAi();
@@ -67,7 +68,6 @@ class ChatControllerTest {
             () -> verify(chatService).checkAi()
         );
     }
-
 
 
 }

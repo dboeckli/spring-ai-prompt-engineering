@@ -1,0 +1,3 @@
+###
+GET http://localhost:{{application-port}}/api/instructions/cook-a-steak
+Accept: application/json

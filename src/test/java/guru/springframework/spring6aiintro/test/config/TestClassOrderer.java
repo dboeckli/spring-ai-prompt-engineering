@@ -18,7 +18,7 @@ public class TestClassOrderer implements ClassOrderer {
             return 1;
         } else if (className.endsWith("IT")) {
             return 2;
-       } else {
+        } else {
             throw new IllegalArgumentException("Test class " + className + " does not end with 'Test', 'IT', or 'BPM'");
         }
     }

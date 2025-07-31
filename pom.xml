@@ -8,7 +8,7 @@
         <version>3.5.4</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    
+
     <groupId>guru.springframework</groupId>
     <artifactId>spring-ai-prompt-engineering</artifactId>
     <version>0.0.1-SNAPSHOT</version>
@@ -26,7 +26,7 @@
         <url>https://github.com/${project.organization.name}/${project.artifactId}.git</url>
         <tag>HEAD</tag>
     </scm>
-    
+
     <properties>
         <java.version>21</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -39,7 +39,7 @@
         <skip.docker.build>false</skip.docker.build>
         <skip.docker.publish>true</skip.docker.publish>
         <skip.start.stop.springboot>false</skip.start.stop.springboot>
-      
+
         <docker.image.tag>development</docker.image.tag> <!-- for feature branches -->
         <docker.repo>local</docker.repo>
 
@@ -131,7 +131,7 @@
             </properties>
         </profile>
     </profiles>
-    
+
     <distributionManagement>
         <repository>
             <id>github</id>
@@ -151,7 +151,7 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
-    
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -289,7 +289,8 @@
                                 <requireJavaVersion>
                                     <message>This build requires at least Java ${java.version},
                                         update your JVM, and
-                                        run the build again</message>
+                                        run the build again
+                                    </message>
                                     <version>${java.version}</version>
                                 </requireJavaVersion>
                             </rules>
@@ -354,14 +355,14 @@
                         <configuration>
                             <target>
                                 <propertyfile file="${project.build.directory}/helm.properties">
-                                    <entry key="helm.chart.version" value="v${project.version}" />
+                                    <entry key="helm.chart.version" value="v${project.version}"/>
                                 </propertyfile>
                                 <!--suppress UnresolvedMavenProperty: git.commit.id.abbrev is set by git git-commit-id-maven-plugin -->
                                 <replaceregexp file="${project.build.directory}/helm.properties"
                                                match="helm\.chart\.version=(v[0-9]+\.[0-9]+\.[0-9]+)_.*-SNAPSHOT"
                                                replace="helm.chart.version=\1-${git.commit.id.abbrev}"
-                                               byline="true" />
-                                <property file="${project.build.directory}/helm.properties" />
+                                               byline="true"/>
+                                <property file="${project.build.directory}/helm.properties"/>
                             </target>
                         </configuration>
                     </execution>
@@ -374,7 +375,7 @@
                         </goals>
                         <configuration>
                             <target>
-                                <delete file="${project.build.directory}/helm-charts/dependencies-values.yaml" />
+                                <delete file="${project.build.directory}/helm-charts/dependencies-values.yaml"/>
                             </target>
                         </configuration>
                     </execution>

@@ -42,7 +42,7 @@ probes:
     periodSeconds: 10
     timeoutSeconds: 5
     failureThreshold: 6
-    
+
 openai:
   apiKey: ""  # Leer lassen, wird über --set oder values.yaml override gesetzt
 

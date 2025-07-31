@@ -47,7 +47,8 @@ class QuestionControllerTest {
     @Test
     void checkAi_HandlesException() throws JsonProcessingException {
         String errorMessage = "Parse error";
-        when(openAIService.checkAi()).thenThrow(new JsonProcessingException(errorMessage) {});
+        when(openAIService.checkAi()).thenThrow(new JsonProcessingException(errorMessage) {
+        });
 
         ResponseEntity<String> response = questionController.checkAi();
 

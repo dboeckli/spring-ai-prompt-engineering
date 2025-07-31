@@ -26,7 +26,7 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 @ActiveProfiles("local")
 @Slf4j
 class OpenAIServiceImplIT {
-    
+
     @Autowired
     OpenAIService openAIService;
 
