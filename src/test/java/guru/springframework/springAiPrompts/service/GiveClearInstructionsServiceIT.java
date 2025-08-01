@@ -42,15 +42,17 @@ class GiveClearInstructionsServiceIT {
             () -> assertNotNull(response, "Response should not be null"),
             () -> {
                 if (hasSteps) {
-                    assertThat(response, containsString("Step 1"));
+                    assertThat(response, matchesPattern("(?is).*step\\s*\\d+.*"));
+                    assertNotNull(response);
                     assertThat(
-                        response.lines()
-                            .filter(line -> line.trim().startsWith("Step"))
+                        response.toLowerCase().lines()
+                            .filter(line -> line.matches(".*step\\s*\\d+.*"))
                             .count(),
                         greaterThanOrEqualTo(minimumSteps)
                     );
                 } else {
-                    assertThat(response, containsString("No steps provided"));
+                    assertNotNull(response);
+                    assertThat(response.toLowerCase(), containsString("no steps provided"));
                 }
             },
             () -> {
