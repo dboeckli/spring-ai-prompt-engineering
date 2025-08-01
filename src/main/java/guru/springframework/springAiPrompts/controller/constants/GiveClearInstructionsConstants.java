@@ -5,23 +5,36 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public class GiveClearInstructionsConstants {
 
-    public final static String PROMPT_GET_JSON_RESPONSE = """
-        Generate a list of 4 made up cars. Provide them in a JSON format
-        with the following attributes: make, model, year, and color. Return the JSON string.
+    public final static String PROMPT_LIST_OF_CARS = """
+        You are a car data generator.
+        Generate a list of exactly 4 made-up cars in <%format%> format.
+        Each car must have these attributes: make, model, year (between 2020-2030), and color.
+        
+        Format specific instructions:
+        For XML format:
+        - Start with exactly: <?xml version="1.0" encoding="UTF-8"?>
+        - Use a root element <cars>
+        - Each car should be in a <car> element
+        - Attributes should be elements: <make>, <model>, <year>, <color>
+        
+        For JSON format:
+        - Start with { and end with }
+        - Use "cars" as root array
+        - Format: {"cars": [{"make": "...", "model": "...", "year": YYYY, "color": "..."}]}
+        - Year must be a number, not a string
+        
+        For YAML format:
+        - Start with "cars:"
+        - Each car must be a list item starting with "-"
+        - Each car should have make:, model:, year:, and color: as properties
+        - Use proper YAML indentation (2 spaces)
+        
+        Return ONLY the raw content WITHOUT any code blocks, markdown, or explanatory text.
         """;
 
-    public final static String PROMPT_GET_XML_RESPONSE = """
-        Generate a list of 4 made up cars. Provide them in a XML format
-        with the following attributes: make, model, year, and color. Return the XML string.
-        """;
-
-    public final static String PROMPT_GET_YAML_RESPONSE = """
-        Generate a list of 4 made up cars. Provide them in a YAML format
-        with the following attributes: make, model, year, and color. Return the YAML string.
-        """;
 
     //ask the model to check if conditions are satisfied
-    public final static String PROMPT_REFORMAT_INSTRUCTIONS = """
+    public final static String PROMPT_ENUMERATE_INSTRUCTIONS = """
         You will be provided with text delimited by triple quotes.
         If it contains a sequence of instructions,
         re-write those instructions in the following format:
@@ -45,7 +58,7 @@ public class GiveClearInstructionsConstants {
         Finally, let the steak rest for 5 minutes before slicing.
         Enjoy!""";
 
-    String PROMPT_ASK_FOR_DESCRIPTION = """
+    public final static String TEXT_BOOK_DESCRIPTION = """
         Book Elon Musk
         When Elon Musk was a kid in South Africa, he was regularly beaten by bullies. One day a group pushed him down some concrete steps and kicked him until his face was a swollen ball of flesh. He was in the hospital for a week. But the physical scars were minor compared to the emotional ones inflicted by his father, an engineer, rogue, and charismatic fantasist.
         
