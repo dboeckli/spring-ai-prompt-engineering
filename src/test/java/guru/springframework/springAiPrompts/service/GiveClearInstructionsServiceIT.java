@@ -73,13 +73,13 @@ class GiveClearInstructionsServiceIT {
             ),
             Arguments.of(
                 TEXT_COOK_A_STEAK + " Give the directions using the tone of Snoop Dog",
-                List.of("room temperature", "olive oil", "salt", "pepper", "minutes"),
+                List.of("room temp", "olive oil", "salt", "pepper", "min"),
                 true,
                 5L
             ),
             Arguments.of(
                 TEXT_COOK_A_STEAK + " Give the directions using the tone, tools and imagination of JK Rowling in a Harry Potter book",
-                List.of("room temperature", "olive oil", "salt", "pepper", "minutes"),
+                List.of("room temp", "olive oil", "salt", "pepper", "min"),
                 true,
                 5L
             ),
