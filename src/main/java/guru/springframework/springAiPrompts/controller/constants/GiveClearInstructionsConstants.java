@@ -43,6 +43,7 @@ public class GiveClearInstructionsConstants {
         Step 2 - ...
         Step N - ...
         
+        Ensure that the first sentence of your response starts with "Step 1".
         If the text does not contain a sequence of instructions, then simply write \\"No steps provided.\\"
         
         \\"\\"\\"{text_1}\\"\\"\\"
