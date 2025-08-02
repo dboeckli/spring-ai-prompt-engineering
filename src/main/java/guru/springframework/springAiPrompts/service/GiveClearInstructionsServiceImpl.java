@@ -1,6 +1,7 @@
 package guru.springframework.springAiPrompts.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.ai.chat.model.ChatModel;
@@ -21,19 +22,18 @@ public class GiveClearInstructionsServiceImpl implements GiveClearInstructionsSe
 
     private final ChatModel chatModel;
 
+    private final ObjectMapper objectMapper;
+
     @Override
     public ChatResponse enumerateInstructions(String instructions) {
         PromptTemplate promptTemplate = new PromptTemplate(PROMPT_ENUMERATE_INSTRUCTIONS);
 
         ChatResponse chatResponse = chatModel.call(promptTemplate.create(Map.of("text_1", instructions)));
-
         try {
-            String json = AiResponseFormatter.formatAiCheckResponse(chatResponse, PROMPT_ENUMERATE_INSTRUCTIONS);
-            log.info("Formatted AI response: {}", json);
+            log.info("ChatResponse:\n" + objectMapper.writeValueAsString(chatResponse));
         } catch (JsonProcessingException e) {
-            log.error("Error formatting AI response: {}", e.getMessage());
+            log.error("Error formatting ChatResponse: {}", e.getMessage());
         }
-
         return chatResponse;
     }
 
@@ -45,10 +45,9 @@ public class GiveClearInstructionsServiceImpl implements GiveClearInstructionsSe
         ChatResponse chatResponse = chatModel.call(prompt);
 
         try {
-            String json = AiResponseFormatter.formatAiCheckResponse(chatResponse, PROMPT_LIST_OF_CARS);
-            log.info("Formatted AI response: {}", json);
+            log.info("ChatResponse:\n" + objectMapper.writeValueAsString(chatResponse));
         } catch (JsonProcessingException e) {
-            log.error("Error formatting AI response: {}", e.getMessage());
+            log.error("Error formatting ChatResponse: {}", e.getMessage());
         }
 
         return chatResponse;

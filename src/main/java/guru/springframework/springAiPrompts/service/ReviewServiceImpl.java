@@ -1,6 +1,7 @@
 package guru.springframework.springAiPrompts.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.ai.chat.model.ChatModel;
@@ -20,6 +21,8 @@ public class ReviewServiceImpl implements ReviewService {
 
     private final ChatModel chatModel;
 
+    private final ObjectMapper objectMapper;
+
     @Override
     public ChatResponse createReview(String prompt, String... reviews) {
         PromptTemplate promptTemplate = new PromptTemplate(prompt);
@@ -31,12 +34,10 @@ public class ReviewServiceImpl implements ReviewService {
         );
 
         ChatResponse chatResponse = chatModel.call(promptTemplate.create(reviewMap));
-
         try {
-            String json = AiResponseFormatter.formatAiCheckResponse(chatResponse, prompt);
-            log.info("Formatted AI response: {}", json);
+            log.info("ChatResponse:\n" + objectMapper.writeValueAsString(chatResponse));
         } catch (JsonProcessingException e) {
-            log.error("Error formatting AI response: {}", e.getMessage());
+            log.error("Error formatting ChatResponse: {}", e.getMessage());
         }
 
         return chatResponse;
