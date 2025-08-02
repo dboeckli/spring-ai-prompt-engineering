@@ -1,0 +1,23 @@
+###
+GET http://localhost:{{application-port}}/api/enumerate-instructions/cook-a-steak
+Accept: application/json
+
+###
+GET http://localhost:{{application-port}}/api/enumerate-instructions/book-description
+Accept: application/json
+
+###
+GET http://localhost:{{application-port}}/api/enumerate-instructions/list-cars/XML
+Accept: application/json
+
+###
+GET http://localhost:{{application-port}}/api/enumerate-instructions/list-cars/JSON
+Accept: application/json
+
+###
+GET http://localhost:{{application-port}}/api/enumerate-instructions/list-cars/YAML
+Accept: application/json
+
+###
+GET http://localhost:{{application-port}}/api/enumerate-instructions/list-cars/WRONG_FORMAT
+Accept: application/json
