@@ -1,0 +1,3 @@
+###
+GET http://localhost:{{application-port}}/api/making-the-model-think/enigma-with-ball
+Accept: application/json
