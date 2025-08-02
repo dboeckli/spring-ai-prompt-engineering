@@ -1,11 +1,8 @@
 package guru.springframework.springAiPrompts.service;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import guru.springframework.springAiPrompts.dto.Conversation;
 import guru.springframework.springAiPrompts.test.config.DeepseekApiKeyExtension;
 import lombok.extern.slf4j.Slf4j;
-import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +10,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.allOf;
+import static org.hamcrest.Matchers.containsString;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 
 @SpringBootTest
@@ -28,24 +27,10 @@ class OpenAIServiceImplIT {
 
     @Test
     void testCheckAi() {
-        String response = assertDoesNotThrow(() -> openAIService.checkAi());
-        assertThat(response, allOf(
-            Matchers.notNullValue(),
-            not(emptyString())
-        ));
+        Conversation conversation = assertDoesNotThrow(() -> openAIService.checkAi());
+        assertNotNull(conversation);
 
-        try {
-            ObjectMapper objectMapper = new ObjectMapper();
-            JsonNode jsonNode = objectMapper.readTree(response);
-
-            if (jsonNode.isObject() && jsonNode.has("result")) {
-                response = jsonNode.get("result").asText();
-            }
-        } catch (JsonProcessingException e) {
-            log.info("Response is not a valid JSON. Treating it as a plain string.");
-        }
-
-        assertThat(response, allOf(
+        assertThat(conversation.chatResponse().getResult().getOutput().getText(), allOf(
             containsString("4")
         ));
     }

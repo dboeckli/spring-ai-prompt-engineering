@@ -1,6 +1,6 @@
 package guru.springframework.springAiPrompts.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
+import guru.springframework.springAiPrompts.dto.Conversation;
 import guru.springframework.springAiPrompts.service.ChatClientService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,13 +18,9 @@ public class ChatController {
     private final ChatClientService chatClientService;
 
     @GetMapping("/check-ai")
-    public ResponseEntity<String> checkAi() {
-        try {
-            String result = chatClientService.checkAi();
-            return ResponseEntity.ok(result);
-        } catch (JsonProcessingException e) {
-            return ResponseEntity.internalServerError().body("Error processing AI check: " + e.getMessage());
-        }
+    public ResponseEntity<Conversation> checkAi() {
+        Conversation conversation = chatClientService.checkAi();
+        return ResponseEntity.ok(conversation);
     }
 
 }

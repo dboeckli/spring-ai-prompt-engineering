@@ -1,7 +1,7 @@
 package guru.springframework.springAiPrompts.service;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
+import guru.springframework.springAiPrompts.dto.Conversation;
 
 public interface ChatClientService {
-    String checkAi() throws JsonProcessingException;
+    Conversation checkAi();
 }

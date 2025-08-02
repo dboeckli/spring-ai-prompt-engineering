@@ -1,12 +1,14 @@
 package guru.springframework.springAiPrompts.service;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
+import guru.springframework.springAiPrompts.dto.Conversation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.ai.chat.client.ChatClient;
+import org.springframework.ai.chat.messages.UserMessage;
 import org.springframework.ai.chat.model.ChatResponse;
+import org.springframework.ai.chat.prompt.Prompt;
 import org.springframework.stereotype.Service;
 
-import static guru.springframework.springAiPrompts.service.AiResponseFormatter.INPUT_CHECK_AI;
+import static guru.springframework.springAiPrompts.dto.Conversation.PROMPT_CHECK_AI;
 
 @Service
 @Slf4j
@@ -19,12 +21,15 @@ public class ChatClientServiceImpl implements ChatClientService {
     }
 
     @Override
-    public String checkAi() throws JsonProcessingException {
-        String input = INPUT_CHECK_AI;
+    public Conversation checkAi() {
         ChatResponse chatResponse = chatClient.prompt()
-            .user(input)
+            .user(PROMPT_CHECK_AI)
             .call()
             .chatResponse();
-        return AiResponseFormatter.formatAiCheckResponse(chatResponse, input);
+
+        return new Conversation(
+            new Prompt(new UserMessage(PROMPT_CHECK_AI)),
+            chatResponse
+        );
     }
 }

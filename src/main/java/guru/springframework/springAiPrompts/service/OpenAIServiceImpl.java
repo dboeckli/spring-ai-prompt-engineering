@@ -1,6 +1,6 @@
 package guru.springframework.springAiPrompts.service;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
+import guru.springframework.springAiPrompts.dto.Conversation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.ai.chat.messages.UserMessage;
@@ -9,7 +9,7 @@ import org.springframework.ai.chat.model.ChatResponse;
 import org.springframework.ai.chat.prompt.Prompt;
 import org.springframework.stereotype.Service;
 
-import static guru.springframework.springAiPrompts.service.AiResponseFormatter.INPUT_CHECK_AI;
+import static guru.springframework.springAiPrompts.dto.Conversation.PROMPT_CHECK_AI;
 
 
 @Service
@@ -20,11 +20,13 @@ public class OpenAIServiceImpl implements OpenAIService {
     private final ChatModel chatModel;
 
     @Override
-    public String checkAi() throws JsonProcessingException {
-        String input = INPUT_CHECK_AI;
-        Prompt promptObj = new Prompt(new UserMessage(input));
-        promptObj.getInstructions().forEach(m -> log.info("role={}, text={}", m.getMessageType(), m.getText()));
-        ChatResponse chatResponse = chatModel.call(promptObj);
-        return AiResponseFormatter.formatAiCheckResponse(chatResponse, input);
+    public Conversation checkAi() {
+        Prompt prompt = new Prompt(new UserMessage(PROMPT_CHECK_AI));
+        ChatResponse chatResponse = chatModel.call(prompt);
+
+        return new Conversation(
+            prompt,
+            chatResponse
+        );
     }
 }

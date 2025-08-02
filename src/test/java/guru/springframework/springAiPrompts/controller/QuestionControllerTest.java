@@ -1,13 +1,19 @@
 package guru.springframework.springAiPrompts.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
+import guru.springframework.springAiPrompts.dto.Conversation;
 import guru.springframework.springAiPrompts.service.OpenAIService;
 import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.springframework.ai.chat.messages.AssistantMessage;
+import org.springframework.ai.chat.model.ChatResponse;
+import org.springframework.ai.chat.model.Generation;
 import org.springframework.http.ResponseEntity;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.verify;
@@ -33,28 +39,24 @@ class QuestionControllerTest {
     }
 
     @Test
-    void checkAi_Success() throws JsonProcessingException {
+    void checkAi_Success() {
         String expectedResponse = "AI is working";
-        when(openAIService.checkAi()).thenReturn(expectedResponse);
+        AssistantMessage expectedAssistantMessage = new AssistantMessage(expectedResponse);
+        ChatResponse exptectedChatResponse = new ChatResponse(List.of(new Generation(expectedAssistantMessage)));
 
-        ResponseEntity<String> response = questionController.checkAi();
+        Conversation expectedConversation = new Conversation(null , exptectedChatResponse);
+        when(openAIService.checkAi()).thenReturn(expectedConversation);
 
-        assertEquals(200, response.getStatusCode().value());
-        assertEquals(expectedResponse, response.getBody());
+        ResponseEntity<Conversation> responseEntity = questionController.checkAi();
+        Assertions.assertNotNull(responseEntity.getBody());
+        String responseText = responseEntity.getBody()
+            .chatResponse()
+            .getResult()
+            .getOutput()
+            .getText();
+
+        assertEquals(200, responseEntity.getStatusCode().value());
+        assertEquals(expectedResponse, responseText);
         verify(openAIService).checkAi();
     }
-
-    @Test
-    void checkAi_HandlesException() throws JsonProcessingException {
-        String errorMessage = "Parse error";
-        when(openAIService.checkAi()).thenThrow(new JsonProcessingException(errorMessage) {
-        });
-
-        ResponseEntity<String> response = questionController.checkAi();
-
-        assertEquals(500, response.getStatusCode().value());
-        assertEquals("Error processing AI check: " + errorMessage, response.getBody());
-        verify(openAIService).checkAi();
-    }
-
 }
