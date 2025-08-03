@@ -2,6 +2,11 @@ package guru.springframework.springAiPrompts.controller.constants;
 
 import lombok.experimental.UtilityClass;
 
+import java.lang.reflect.Field;
+import java.util.Arrays;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 @UtilityClass
 public final class MakingTheModelThinkConstants {
 
@@ -17,7 +22,7 @@ public final class MakingTheModelThinkConstants {
         continued exploring with delight.
         """;
 
-    public final static String PROMPT_1_SUMMARIZE_AND_TRANSLATE = """
+    public final static String PROMPT_SUMMARIZE_AND_TRANSLATE = """
         Perform the following actions:
         1 - Summarize the following text delimited by triple
         backticks with 1 sentence.
@@ -30,7 +35,7 @@ public final class MakingTheModelThinkConstants {
         ```{text}```
         """;
 
-    public final static String PROMPT_2_INCORRECT_CHECK_STUDENT_SOLUTION = """
+    public final static String PROMPT_CHECK_STUDENT_SOLUTION_INCORRECT = """
         Determine if the student's solution is correct or not.
         
         Question:
@@ -51,9 +56,12 @@ public final class MakingTheModelThinkConstants {
         2. Solar panel cost: 250x
         3. Maintenance cost: 100,000 + 100x
         Total cost: 100x + 250x + 100,000 + 100x = 450x + 100,000
+        
+        At the end place the follwoing outcome:
+        Solution was: Correct or Incorrect
         """;
 
-    public final String PROMPT_3_CORRECT_CHECK_STUDENT_SOLUTION = """
+    public final String PROMPT_CHECK_STUDENT_SOLUTION_CORRECT = """
         Your task is to determine if the student's solution is correct or not.
         To solve the problem do the following:
         - First, work out your own solution to the problem including the final total.
@@ -77,6 +85,8 @@ public final class MakingTheModelThinkConstants {
         Student grade:
         ```correct or incorrect```
         
+        Solution was: Correct or Incorrect
+        
         Question:
         ```
         I'm building a solar power installation and I need help working out the financials.
@@ -99,10 +109,16 @@ public final class MakingTheModelThinkConstants {
         
         Actual solution:
         ```actual solution here```
-        
         """;
 
-    public final String PROMPT_4_ENIGMA_WITH_BALL = """
+    public static Set<String> getAvailablePromptNamesForStudentSolution() {
+        return Arrays.stream(MakingTheModelThinkConstants.class.getDeclaredFields())
+            .map(Field::getName)
+            .filter(name -> name.startsWith("PROMPT_CHECK_STUDENT_SOLUTION_"))
+            .collect(Collectors.toSet());
+    }
+
+    public final String PROMPT_ENIGMA_WITH_BALL = """
         You are an expert at solving reasoning problems. A cup is an object with an open top and close on the sides and bottom.
         The open top does not prevent objects from passing through it.
         

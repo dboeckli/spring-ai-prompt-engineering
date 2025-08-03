@@ -17,6 +17,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.openMocks;
+import static org.mockito.internal.verification.VerificationModeFactory.times;
+import static org.springframework.http.HttpStatus.BAD_REQUEST;
 
 @Slf4j
 class MakingTheModelThinkControllerTest {
@@ -50,5 +52,64 @@ class MakingTheModelThinkControllerTest {
         assertEquals(expectedResponse, response.getBody());
         verify(makingTheModelThinkService).enigmaWithBall();
     }
+
+    @Test
+    void test_correct_checkStudentSolution() {
+        String expectedResponse = "AI is working";
+        AssistantMessage expectedAssistantMessage = new AssistantMessage(expectedResponse);
+
+        // Create a valid ChatResponse
+        ChatResponse chatResponse = new ChatResponse(List.of(new Generation(expectedAssistantMessage)));
+        when(makingTheModelThinkService.checkStudentSolution("PROMPT_CHECK_STUDENT_SOLUTION_CORRECT")).thenReturn(chatResponse);
+
+        ResponseEntity<String> response = makingTheModelThinkController.checkStudentSolution("PROMPT_CHECK_STUDENT_SOLUTION_CORRECT");
+
+        assertEquals(200, response.getStatusCode().value());
+        assertEquals(expectedResponse, response.getBody());
+        verify(makingTheModelThinkService).checkStudentSolution("PROMPT_CHECK_STUDENT_SOLUTION_CORRECT");
+    }
+
+    @Test
+    void test_incorrect_checkStudentSolution() {
+        String expectedResponse = "AI is working";
+        AssistantMessage expectedAssistantMessage = new AssistantMessage(expectedResponse);
+
+        // Create a valid ChatResponse
+        ChatResponse chatResponse = new ChatResponse(List.of(new Generation(expectedAssistantMessage)));
+        when(makingTheModelThinkService.checkStudentSolution("PROMPT_CHECK_STUDENT_SOLUTION_INCORRECT")).thenReturn(chatResponse);
+
+        ResponseEntity<String> response = makingTheModelThinkController.checkStudentSolution("PROMPT_CHECK_STUDENT_SOLUTION_INCORRECT");
+
+        assertEquals(200, response.getStatusCode().value());
+        assertEquals(expectedResponse, response.getBody());
+        verify(makingTheModelThinkService).checkStudentSolution("PROMPT_CHECK_STUDENT_SOLUTION_INCORRECT");
+    }
+
+    @Test
+    void test_checkStudentSolution_with_wrong_parameter() {
+        ResponseEntity<String> response = makingTheModelThinkController.checkStudentSolution("WRONG_PARAM");
+
+        assertEquals(BAD_REQUEST.value(), response.getStatusCode().value());
+        assertEquals("Invalid promptName. Allowed values are: PROMPT_CHECK_STUDENT_SOLUTION_INCORRECT, PROMPT_CHECK_STUDENT_SOLUTION_CORRECT",
+            response.getBody());
+        verify(makingTheModelThinkService, times(0)).checkStudentSolution("WRONG_PARAM");
+    }
+
+    @Test
+    void test_summarizeAndTranslate() {
+        String expectedResponse = "AI is working";
+        AssistantMessage expectedAssistantMessage = new AssistantMessage(expectedResponse);
+        // Create a valid ChatResponse
+        ChatResponse chatResponse = new ChatResponse(List.of(new Generation(expectedAssistantMessage)));
+        when(makingTheModelThinkService.summarizeAndTranslate()).thenReturn(chatResponse);
+
+        ResponseEntity<String> response = makingTheModelThinkController.summarizeAndTranslate();
+
+        assertEquals(200, response.getStatusCode().value());
+        assertEquals(expectedResponse, response.getBody());
+        verify(makingTheModelThinkService).summarizeAndTranslate();
+    }
+
+
 
 }

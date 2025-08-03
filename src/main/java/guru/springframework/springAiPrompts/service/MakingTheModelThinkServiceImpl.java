@@ -2,6 +2,7 @@ package guru.springframework.springAiPrompts.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import guru.springframework.springAiPrompts.controller.constants.MakingTheModelThinkConstants;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.ai.chat.model.ChatModel;
@@ -9,6 +10,7 @@ import org.springframework.ai.chat.model.ChatResponse;
 import org.springframework.ai.chat.prompt.PromptTemplate;
 import org.springframework.stereotype.Service;
 
+import java.lang.reflect.Field;
 import java.util.Map;
 
 import static guru.springframework.springAiPrompts.controller.constants.MakingTheModelThinkConstants.*;
@@ -24,9 +26,9 @@ public class MakingTheModelThinkServiceImpl implements MakingTheModelThinkServic
 
     @Override
     public ChatResponse summarizeAndTranslate() {
-        PromptTemplate promptTemplate = new PromptTemplate(PROMPT_1_SUMMARIZE_AND_TRANSLATE);
+        PromptTemplate promptTemplate = new PromptTemplate(PROMPT_SUMMARIZE_AND_TRANSLATE);
 
-        ChatResponse chatResponse = chatModel.call(promptTemplate.create(Map.of("text_1", STORY)));
+        ChatResponse chatResponse = chatModel.call(promptTemplate.create(Map.of("text", STORY)));
         try {
             log.info("ChatResponse:\n" + objectMapper.writeValueAsString(chatResponse));
         } catch (JsonProcessingException e) {
@@ -36,7 +38,16 @@ public class MakingTheModelThinkServiceImpl implements MakingTheModelThinkServic
     }
 
     @Override
-    public ChatResponse checkStudentSolution(String prompt) {
+    public ChatResponse checkStudentSolution(String promptName) {
+        String prompt;
+        try {
+            Field field = MakingTheModelThinkConstants.class.getDeclaredField(promptName);
+            field.setAccessible(true);
+            prompt = (String) field.get(null);
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            log.error("Error retrieving prompt: {}", e.getMessage());
+            throw new IllegalArgumentException("Invalid prompt name: " + promptName);
+        }
         PromptTemplate promptTemplate = new PromptTemplate(prompt);
 
         ChatResponse chatResponse = chatModel.call(promptTemplate.create());
@@ -50,7 +61,7 @@ public class MakingTheModelThinkServiceImpl implements MakingTheModelThinkServic
 
     @Override
     public ChatResponse enigmaWithBall() {
-        PromptTemplate promptTemplate = new PromptTemplate(PROMPT_4_ENIGMA_WITH_BALL);
+        PromptTemplate promptTemplate = new PromptTemplate(PROMPT_ENIGMA_WITH_BALL);
 
         ChatResponse chatResponse = chatModel.call(promptTemplate.create());
         try {

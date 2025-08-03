@@ -6,7 +6,7 @@ public interface MakingTheModelThinkService {
 
     ChatResponse summarizeAndTranslate();
 
-    ChatResponse checkStudentSolution(String prompt);
+    ChatResponse checkStudentSolution(String promptName);
 
     ChatResponse  enigmaWithBall();
 

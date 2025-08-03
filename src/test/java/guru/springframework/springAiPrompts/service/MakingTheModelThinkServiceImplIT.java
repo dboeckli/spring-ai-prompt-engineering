@@ -10,6 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -38,6 +39,41 @@ class MakingTheModelThinkServiceImplIT {
         assertThat("The last line should be the expected solution",
             lastLine.trim(),
             equalTo("SOLUTION: The ball is on the table outside the microwave."));
+    }
+
+    @Test
+    void testCheckStudentSolutionGivenCorrectSolution() {
+        ChatResponse chatResponse = assertDoesNotThrow(() -> makingTheModelThinkService
+            .checkStudentSolution("PROMPT_CHECK_STUDENT_SOLUTION_CORRECT"));
+        assertNotNull(chatResponse);
+
+        String response = chatResponse.getResult().getOutput().getText();
+        log.info("Student solution response: {}", response);
+
+        assertThat(response, containsString("Solution was: Incorrect"));
+    }
+
+    @Test
+    void testCheckStudentSolutionGivenWrongSolution() {
+        ChatResponse chatResponse = assertDoesNotThrow(() -> makingTheModelThinkService
+            .checkStudentSolution("PROMPT_CHECK_STUDENT_SOLUTION_INCORRECT"));
+        assertNotNull(chatResponse);
+
+        String response = chatResponse.getResult().getOutput().getText();
+        log.info("Student solution response: {}", response);
+
+        assertThat(response, containsString("Solution was: Incorrect"));
+    }
+
+    @Test
+    void testSummarizeAndTranslate() {
+        ChatResponse chatResponse = assertDoesNotThrow(() -> makingTheModelThinkService.summarizeAndTranslate());
+        assertNotNull(chatResponse);
+
+        String response = chatResponse.getResult().getOutput().getText();
+        log.info("Summarized and translated response: {}", response);
+
+        assertThat(response, containsString("Jack i Jill"));
     }
 
 }
