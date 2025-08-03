@@ -8,7 +8,9 @@ on:
   pull_request:
     branches: [ "main", "master" ]
   schedule:
-    - cron: '5 2 * * *' # daily at 2:05
+    # Off-Peak Discounts：DeepSeek-V3 with 50% off and DeepSeek-R1 with 75% off at off-peak hours (16:30-00:30 UTC daily).
+    # See: https://api-docs.deepseek.com/quick_start/pricing/
+    - cron: '35 17 * * *'
 jobs:
 
   setup:

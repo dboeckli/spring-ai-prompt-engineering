@@ -3,7 +3,7 @@ package guru.springframework.springAiPrompts.controller.constants;
 import lombok.experimental.UtilityClass;
 
 @UtilityClass
-public class GiveClearInstructionsConstants {
+public final class GiveClearInstructionsConstants {
 
     public final static String PROMPT_LIST_OF_CARS = """
         You are a car data generator.
