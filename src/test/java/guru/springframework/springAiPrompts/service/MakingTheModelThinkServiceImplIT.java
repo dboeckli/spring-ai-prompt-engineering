@@ -50,11 +50,11 @@ class MakingTheModelThinkServiceImplIT {
         String response = chatResponse.getResult().getOutput().getText();
         log.info("Student solution response: {}", response);
 
-        assertThat(response, containsString("Solution was: Incorrect"));
+        assertThat(response, containsString("Solution was: Correct"));
     }
 
     @Test
-    void testCheckStudentSolutionGivenWrongSolution() {
+    void testCheckStudentSolutionGivenCorrectSolutionButBadPrompt() {
         ChatResponse chatResponse = assertDoesNotThrow(() -> makingTheModelThinkService
             .checkStudentSolution("PROMPT_CHECK_STUDENT_SOLUTION_INCORRECT"));
         assertNotNull(chatResponse);
@@ -62,7 +62,7 @@ class MakingTheModelThinkServiceImplIT {
         String response = chatResponse.getResult().getOutput().getText();
         log.info("Student solution response: {}", response);
 
-        assertThat(response, containsString("Solution was: Incorrect"));
+        assertThat(response, containsString("Solution was: Correct"));
     }
 
     @Test

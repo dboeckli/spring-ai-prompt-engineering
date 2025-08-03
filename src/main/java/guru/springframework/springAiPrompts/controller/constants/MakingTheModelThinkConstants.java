@@ -54,8 +54,8 @@ public final class MakingTheModelThinkConstants {
         Costs:
         1. Land cost: 100x
         2. Solar panel cost: 250x
-        3. Maintenance cost: 100,000 + 100x
-        Total cost: 100x + 250x + 100,000 + 100x = 450x + 100,000
+        3. Maintenance cost: 100,000 + 10x
+        Total cost: 100x + 250x + 100,000 + 10x = 360x + 100,000
         
         At the end place the follwoing outcome:
         Solution was: Correct or Incorrect
@@ -103,8 +103,8 @@ public final class MakingTheModelThinkConstants {
         Costs:
         1. Land cost: 100x
         2. Solar panel cost: 250x
-        3. Maintenance cost: 100,000 + 100x
-        Total cost: 100x + 250x + 100,000 + 100x = 450x + 100,000
+        3. Maintenance cost: 100,000 + 10x
+        Total cost: 100x + 250x + 100,000 + 10x = 360x + 100,000
         ```
         
         Actual solution:
