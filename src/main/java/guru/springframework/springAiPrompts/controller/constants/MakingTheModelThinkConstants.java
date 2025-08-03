@@ -57,8 +57,8 @@ public final class MakingTheModelThinkConstants {
         3. Maintenance cost: 100,000 + 10x
         Total cost: 100x + 250x + 100,000 + 10x = 360x + 100,000
         
-        At the end place the follwoing outcome:
-        Solution was: Correct or Incorrect
+        At the end place the following outcome. Based on your evaluation above, replace __correct_or_incorrect__ in the following line with either "Correct" or "Incorrect":
+        Solution was: __correct_or_incorrect__:
         """;
 
     public final String PROMPT_CHECK_STUDENT_SOLUTION_CORRECT = """
@@ -85,7 +85,8 @@ public final class MakingTheModelThinkConstants {
         Student grade:
         ```correct or incorrect```
         
-        Solution was: Correct or Incorrect
+        Based on your evaluation above, replace __correct_or_incorrect__ in the following line with either "Correct" or "Incorrect":
+        Solution was: __correct_or_incorrect__
         
         Question:
         ```
