@@ -5,14 +5,14 @@ import org.junit.jupiter.api.Test;
 import java.lang.reflect.Field;
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 class MakingTheModelThinkConstantsTest {
 
     @Test
     void getAvailablePromptNamesForStudentSolution() {
         Set<String> promptVariableNames = MakingTheModelThinkConstants.getAvailablePromptNamesForStudentSolution();
+        assertEquals(2, promptVariableNames.size());
 
         for (String promptName : promptVariableNames) {
             try {
