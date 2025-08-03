@@ -31,10 +31,9 @@ class ReviewServiceImplIT {
 
         log.info("response is: " + response);
 
-        // Check word count
         assertNotNull(response);
         final int sizeToCheck;
-        if (response.contains("(" + MAX_SUMMARY_REVIEW_PROMPT_WORDS + ")")) {
+        if (response.contains("(" + MAX_SUMMARY_REVIEW_PROMPT_WORDS + " words)")) {
             sizeToCheck = MAX_SUMMARY_REVIEW_PROMPT_WORDS + ("(" + MAX_SUMMARY_REVIEW_PROMPT_WORDS + ")").length();
         } else {
             sizeToCheck = MAX_SUMMARY_REVIEW_PROMPT_WORDS + 2;
@@ -74,8 +73,9 @@ class ReviewServiceImplIT {
         String response = chatResponse.getResult().getOutput().getText();
 
         log.info("response is: " + response);
+        assertNotNull(response);
         final int sizeToCheck;
-        if (response.contains("(" + MAX_SUMMARY_REVIEW_PROMPT_3_WORDS + ")")) {
+        if (response.contains("(" + MAX_SUMMARY_REVIEW_PROMPT_3_WORDS +  " words)")) {
             sizeToCheck = MAX_SUMMARY_REVIEW_PROMPT_3_WORDS + ("(" + MAX_SUMMARY_REVIEW_PROMPT_3_WORDS + ")").length();
         } else {
             sizeToCheck = MAX_SUMMARY_REVIEW_PROMPT_3_WORDS + 5;
@@ -108,8 +108,9 @@ class ReviewServiceImplIT {
         String response = chatResponse.getResult().getOutput().getText();
 
         log.info("response is: " + response);
+        assertNotNull(response);
         final int sizeToCheck;
-        if (response.contains("(" + MAX_SUMMARY_REVIEW_PROMPT_4_WORDS + ")")) {
+        if (response.contains("(" + MAX_SUMMARY_REVIEW_PROMPT_4_WORDS + " words)")) {
             sizeToCheck = MAX_SUMMARY_REVIEW_PROMPT_4_WORDS + ("(" + MAX_SUMMARY_REVIEW_PROMPT_4_WORDS + ")").length();
         } else {
             sizeToCheck = MAX_SUMMARY_REVIEW_PROMPT_4_WORDS + 5;
