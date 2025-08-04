@@ -1,3 +1,34 @@
 ###
 GET http://localhost:{{application-port}}/api/making-the-model-think/enigma-with-ball
 Accept: application/json
+
+###
+POST http://localhost:{{application-port}}/api/making-the-model-think/check-student-solution
+Content-Type: application/json
+Accept: application/json
+
+{
+    "promptName": "PROMPT_CHECK_STUDENT_SOLUTION_CORRECT"
+}
+
+###
+POST http://localhost:{{application-port}}/api/making-the-model-think/check-student-solution
+Content-Type: application/json
+Accept: application/json
+
+{
+    "promptName": "PROMPT_CHECK_STUDENT_SOLUTION_INCORRECT"
+}
+
+###
+POST http://localhost:{{application-port}}/api/making-the-model-think/check-student-solution
+Content-Type: application/json
+Accept: application/json
+
+{
+    "promptName": "WRONG_PARAM"
+}
+
+###
+GET http://localhost:{{application-port}}/api/making-the-model-think/summarize-and-translate
+Accept: application/json

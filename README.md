@@ -19,6 +19,9 @@ AI models.
 - Billing Details: https://platform.deepseek.com/account/billing
 - API Keys: https://platform.deepseek.com/api_keys
 
+Off-Peak Discounts：DeepSeek-V3 with 50% off and DeepSeek-R1 with 75% off at off-peak hours (16:30-00:30 UTC daily).
+Check here: https://api-docs.deepseek.com/quick_start/pricing/
+
 ### 1.2 Monitoring Information
 
 #### Usage Dashboard
