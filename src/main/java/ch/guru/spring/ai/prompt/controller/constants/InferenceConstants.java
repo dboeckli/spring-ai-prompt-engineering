@@ -89,40 +89,41 @@ public final class  InferenceConstants {
         """;
 
     public final static String STORY = """
-        In a recent survey conducted by the government,\s
-        public sector employees were asked to rate their level\s
-        of satisfaction with the department they work at.\s
-        The results revealed that NASA was the most popular\s
+        In a recent survey conducted by the government,
+        public sector employees were asked to rate their level
+        of satisfaction with the department they work at.
+        The results revealed that NASA was the most popular
         department with a satisfaction rating of 95%.
         
-        One NASA employee, John Smith, commented on the findings,\s
-        stating, "I'm not surprised that NASA came out on top.\s
-        It's a great place to work with amazing people and\s
-        incredible opportunities. I'm proud to be a part of\s
+        One NASA employee, John Smith, commented on the findings,
+        stating, "I'm not surprised that NASA came out on top.
+        It's a great place to work with amazing people and
+        incredible opportunities. I'm proud to be a part of
         such an innovative organization."
         
-        The results were also welcomed by NASA's management team,\s
-        with Director Tom Johnson stating, "We are thrilled to\s
-        hear that our employees are satisfied with their work at NASA.\s
-        We have a talented and dedicated team who work tirelessly\s
-        to achieve our goals, and it's fantastic to see that their\s
+        The results were also welcomed by NASA's management team,
+        with Director Tom Johnson stating, "We are thrilled to
+        hear that our employees are satisfied with their work at NASA.
+        We have a talented and dedicated team who work tirelessly
+        to achieve our goals, and it's fantastic to see that their
         hard work is paying off."
         
-        The survey also revealed that the\s
-        Social Security Administration had the lowest satisfaction\s
-        rating, with only 45% of employees indicating they were\s
-        satisfied with their job. The government has pledged to\s
-        address the concerns raised by employees in the survey and\s
+        The survey also revealed that the
+        Social Security Administration had the lowest satisfaction
+        rating, with only 45% of employees indicating they were
+        satisfied with their job. The government has pledged to
+        address the concerns raised by employees in the survey and
         work towards improving job satisfaction across all departments.
         """;
 
     public final static String PROMPT_STORY = """
-        Determine five topics that are being discussed in the\s
+        Determine five topics that are being discussed in the
         following text, which is delimited by triple backticks.
         
-        Make each item one or two words long.\s
+        Make each item one or two words long.
         
-        Format your response as a list of items separated by commas.
+        Format your response as a list of items separated by commas,
+        without line breaks or bullet points. For example: topic1, topic2, topic3, topic4, topic5
         
         Text sample: '''{story}'''
         """;
