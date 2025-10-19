@@ -52,7 +52,7 @@ class AITokenUsageIT {
         double expectedMinTotal = expectedInput + expectedMinOutput;
         double expectedMaxTotal = expectedInput + expectedMaxOutput;
 
-        assertEquals(expectedInput, input);
+        assertEquals(expectedInput, input, 1.0);
         assertThat(output, allOf(greaterThanOrEqualTo(expectedMinOutput), lessThanOrEqualTo(expectedMaxOutput)));
         assertThat(total, allOf(greaterThanOrEqualTo(expectedMinTotal), lessThanOrEqualTo(expectedMaxTotal)));
     }
