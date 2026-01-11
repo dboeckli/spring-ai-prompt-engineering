@@ -123,6 +123,7 @@ public final class ReviewConstants {
         Review 3: ```{review3}```
         
         CRITICAL: Your response MUST NOT exceed %d words under ANY circumstances. If your summary is longer, shorten it.
+        IMPORTANT: Do NOT use the word "Review" or "reviews" in your summary. Write as if describing the book directly.
         
         """.formatted(MAX_SUMMARY_REVIEW_PROMPT_3_WORDS, MAX_SUMMARY_REVIEW_PROMPT_3_WORDS);
 
