@@ -3,7 +3,7 @@ package ch.guru.spring.ai.prompt.controller.constants;
 import lombok.experimental.UtilityClass;
 
 @UtilityClass
-public final class  InferenceConstants {
+public final class InferenceConstants {
 
     public final static String REVIEW_1 = """
         I recently purchased the Stanley 40oz Tumbler in the vibrant Citron color, and I am thoroughly impressed with its performance in every aspect. From its sleek design to its remarkable durability and easy washability, this tumbler has quickly become my go-to companion for all my hydration needs.
@@ -35,23 +35,23 @@ public final class  InferenceConstants {
         Newsflash: After all the hype surrounding this insulated tumbler, I finally decided to purchase one. Unfortunately, after two days, I happened upon an article on Google about these tumblers when I noticed one particular word that caught my attention in the title...Lead! I read the article in which the company admitted to using lead as part of the sealing agent that helps seal and insulate the tumbler. I was instantly mortified at what I just read and informed my mother about the article because she had purchase one right after me. I was shocked that Stanley would keep this a secret for so long after selling what I would think possibly several thousand of these insulated tumblers. Staying healthy is hard enough without a company feeding me a product with lead in it! The nerve and dare I say audacity of this company after so many incidents involving lead in this country affecting children especially. Needless to say I will be returning this item post haste and will not be purchasing another Stanley product anytime soon or maybe even ever!""";
 
     public final static String PROMPT_SENTIMENT = """
-        Determine the sentiment of the following reviews and provide a brief summary (one sentence) of each review.
-        Use following options for sentiments: Positive, Negative, Mixed (Leaning Negative), Mixed (Leaning Positive)
-        Use the following format for your response, replacing __sentiment__ with the actual sentiment and __summary__ with the actual summary:
-        Review 1: __sentiment__
-        Summary: __summary__
-        Review 2: __sentiment__
-        Summary: __summary__
-        Review n: __sentiment__
-        Summary: __summary__
-       
-        Review 1: ```{review1}```
-        Review 2: ```{review2}```
-        Review 3: ```{review3}```
-        Review 4: ```{review4}```
-        Review 5: ```{review5}```
-        Review 6: ```{review6}```
-       """;
+         Determine the sentiment of the following reviews and provide a brief summary (one sentence) of each review.
+         Use following options for sentiments: Positive, Negative, Mixed (Leaning Negative), Mixed (Leaning Positive)
+         Use the following format for your response, replacing __sentiment__ with the actual sentiment and __summary__ with the actual summary:
+         Review 1: __sentiment__
+         Summary: __summary__
+         Review 2: __sentiment__
+         Summary: __summary__
+         Review n: __sentiment__
+         Summary: __summary__
+        
+         Review 1: ```{review1}```
+         Review 2: ```{review2}```
+         Review 3: ```{review3}```
+         Review 4: ```{review4}```
+         Review 5: ```{review5}```
+         Review 6: ```{review6}```
+        """;
 
     public final static String PROMPT_EMOTION = """
         Identify a list of emotions that the writer of the following reviews is expressing, and provide a brief summary (one sentence) of each review.
@@ -116,14 +116,20 @@ public final class  InferenceConstants {
         work towards improving job satisfaction across all departments.
         """;
 
-    public final static String PROMPT_STORY = """
-        Determine five topics that are being discussed in the
-        following text, which is delimited by triple backticks.
+    public static final String PROMPT_STORY = """
+        Determine which five topics are being discussed in the following text,
+        which is delimited by triple backticks.
         
-        Make each item one or two words long.
+        You MUST choose the topics only from the following list:
+        survey, satisfaction, NASA, employees, management
         
-        Format your response as a list of items separated by commas,
-        without line breaks or bullet points. For example: topic1, topic2, topic3, topic4, topic5
+        Do NOT invent new topics.
+        Do NOT use synonyms.
+        Use each topic at most once.
+        
+        Format your response as a single line, as a comma-separated list,
+        without line breaks or bullet points.
+        Example: survey, satisfaction, NASA, employees, management
         
         Text sample: '''{story}'''
         """;
