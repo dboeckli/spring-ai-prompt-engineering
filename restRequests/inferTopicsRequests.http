@@ -1,0 +1,15 @@
+###
+GET http://localhost:{{application-port}}/api/inference/get-sentiments
+Accept: application/json
+
+###
+GET http://localhost:{{application-port}}/api/inference/get-emotions
+Accept: application/json
+
+###
+GET http://localhost:{{application-port}}/api/inference/get-angers
+Accept: application/json
+
+###
+GET http://localhost:{{application-port}}/api/inference/get-infer-topics
+Accept: application/json
