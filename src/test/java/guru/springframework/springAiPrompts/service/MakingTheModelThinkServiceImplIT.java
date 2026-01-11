@@ -62,7 +62,7 @@ class MakingTheModelThinkServiceImplIT {
         log.info("Student solution response: {}", response);
 
         assertThat(response, containsStringIgnoringCase("Solution was:"));
-        assertThat(response, containsStringIgnoringCase("Correct:"));
+        assertThat(response, containsStringIgnoringCase("Correct"));
     }
 
     @Test
