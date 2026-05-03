@@ -50,7 +50,9 @@ class MakingTheModelThinkServiceImplIT {
         String response = chatResponse.getResult().getOutput().getText();
         log.info("Student solution response: {}", response);
 
-        assertThat(response, containsString("Solution was: Correct"));
+        assertNotNull(response);
+        String normalized = response.replace("**", "");
+        assertThat(normalized, containsString("Solution was: Correct"));
     }
 
     @Test
