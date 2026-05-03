@@ -15,7 +15,6 @@ import static org.hamcrest.Matchers.containsString;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-
 @SpringBootTest
 @ActiveProfiles("local")
 @ExtendWith(DeepseekApiKeyExtension.class)
@@ -30,9 +29,7 @@ class OpenAIServiceImplIT {
         Conversation conversation = assertDoesNotThrow(() -> openAIService.checkAi());
         assertNotNull(conversation);
 
-        assertThat(conversation.chatResponse().getResult().getOutput().getText(), allOf(
-            containsString("4")
-        ));
+        assertThat(conversation.chatResponse().getResult().getOutput().getText(), allOf(containsString("4")));
     }
 
 }

@@ -9,9 +9,9 @@ public interface GiveClearInstructionsService {
     ChatResponse listCars(ResponseResultFormat format);
 
     enum ResponseResultFormat {
-        JSON,
-        XML,
-        YAML
+
+        JSON, XML, YAML
+
     }
 
 }

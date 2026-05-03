@@ -31,7 +31,8 @@ public class GiveClearInstructionsServiceImpl implements GiveClearInstructionsSe
         ChatResponse chatResponse = chatModel.call(promptTemplate.create(Map.of("text_1", instructions)));
         try {
             log.info("ChatResponse:\n" + objectMapper.writeValueAsString(chatResponse));
-        } catch (JsonProcessingException e) {
+        }
+        catch (JsonProcessingException e) {
             log.error("Error formatting ChatResponse: {}", e.getMessage());
         }
         return chatResponse;
@@ -46,7 +47,8 @@ public class GiveClearInstructionsServiceImpl implements GiveClearInstructionsSe
 
         try {
             log.info("ChatResponse:\n" + objectMapper.writeValueAsString(chatResponse));
-        } catch (JsonProcessingException e) {
+        }
+        catch (JsonProcessingException e) {
             log.error("Error formatting ChatResponse: {}", e.getMessage());
         }
 

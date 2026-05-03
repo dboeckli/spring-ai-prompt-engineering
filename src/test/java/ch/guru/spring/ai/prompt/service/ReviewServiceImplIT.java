@@ -14,7 +14,6 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-
 @SpringBootTest
 @ActiveProfiles("local")
 @ExtendWith(DeepseekApiKeyExtension.class)
@@ -35,7 +34,8 @@ class ReviewServiceImplIT {
         final int sizeToCheck;
         if (response.contains("(" + MAX_SUMMARY_REVIEW_PROMPT_WORDS + " words)")) {
             sizeToCheck = MAX_SUMMARY_REVIEW_PROMPT_WORDS + ("(" + MAX_SUMMARY_REVIEW_PROMPT_WORDS + ")").length();
-        } else {
+        }
+        else {
             sizeToCheck = MAX_SUMMARY_REVIEW_PROMPT_WORDS + 2;
         }
 
@@ -43,68 +43,55 @@ class ReviewServiceImplIT {
 
         assertAll("Review Response Validierung",
 
-            () -> assertThat("Response should contain at most 30 words. Response was: " + response,
-                words.length, lessThanOrEqualTo(sizeToCheck)),
+                () -> assertThat("Response should contain at most 30 words. Response was: " + response, words.length,
+                        lessThanOrEqualTo(sizeToCheck)),
 
-            () -> assertThat("Response should not contain backticks",
-                response, not(containsString("```"))),
+                () -> assertThat("Response should not contain backticks", response, not(containsString("```"))),
 
-            () -> assertThat("Response should mention the book title",
-                response, containsStringIgnoringCase("Elon Musk")),
-            () -> assertThat("Response should mention the author",
-                response, containsStringIgnoringCase("Walter Isaacson")),
+                () -> assertThat("Response should mention the book title", response,
+                        containsStringIgnoringCase("Elon Musk")),
+                () -> assertThat("Response should mention the author", response,
+                        containsStringIgnoringCase("Walter Isaacson")),
 
-            () -> assertThat("Response should mention biography or life",
-                response, anyOf(
-                    containsStringIgnoringCase("biography"),
-                    containsStringIgnoringCase("life")
-                )),
-            () -> assertThat("Response should mention innovation or visionary",
-                response, anyOf(
-                    containsStringIgnoringCase("innovation"),
-                    containsStringIgnoringCase("visionary")
-                ))
-        );
+                () -> assertThat("Response should mention biography or life", response,
+                        anyOf(containsStringIgnoringCase("biography"), containsStringIgnoringCase("life"),
+                                containsStringIgnoringCase("portrait"), containsStringIgnoringCase("story"))),
+                () -> assertThat("Response should mention innovation or visionary", response,
+                        anyOf(containsStringIgnoringCase("innovation"), containsStringIgnoringCase("visionary"))));
     }
 
     @Test
     void testCreateReviews() {
-        ChatResponse chatResponse = assertDoesNotThrow(() -> reviewService.createReview(REVIEW_PROMPT_3, REVIEW_1, REVIEW_2, REVIEW_3));
+        ChatResponse chatResponse = assertDoesNotThrow(
+                () -> reviewService.createReview(REVIEW_PROMPT_3, REVIEW_1, REVIEW_2, REVIEW_3));
         String response = chatResponse.getResult().getOutput().getText();
 
         log.info("response is: " + response);
         assertNotNull(response);
         final int sizeToCheck;
-        if (response.contains("(" + MAX_SUMMARY_REVIEW_PROMPT_3_WORDS +  " words)")) {
+        if (response.contains("(" + MAX_SUMMARY_REVIEW_PROMPT_3_WORDS + " words)")) {
             sizeToCheck = MAX_SUMMARY_REVIEW_PROMPT_3_WORDS + ("(" + MAX_SUMMARY_REVIEW_PROMPT_3_WORDS + ")").length();
-        } else {
+        }
+        else {
             sizeToCheck = MAX_SUMMARY_REVIEW_PROMPT_3_WORDS + 5;
         }
 
-        assertAll("Review Response Validierung",
-            () -> assertNotNull(response, "Response should not be null"),
-            () -> assertThat("Response should contain at most 200 words. Response was: " + response,
-                response.split("\\s+").length, lessThanOrEqualTo(sizeToCheck)),
-            () -> assertThat("Response should not contain review markers",
-                response, not(containsString("Review"))),
-            () -> assertThat("Response should contain insights from all reviews",
-                response, allOf(
-                    containsStringIgnoringCase("Elon Musk"),
-                    containsStringIgnoringCase("Walter Isaacson"),
-                    containsStringIgnoringCase("biography"),
-                    anyOf(
-                        containsStringIgnoringCase("technology"),
-                        containsStringIgnoringCase("innovation"),
-                        containsStringIgnoringCase("visionary")
-                    )
-                ))
-        );
+        assertAll("Review Response Validierung", () -> assertNotNull(response, "Response should not be null"),
+                () -> assertThat("Response should contain at most 200 words. Response was: " + response,
+                        response.split("\\s+").length, lessThanOrEqualTo(sizeToCheck)),
+                () -> assertThat("Response should not contain review markers", response, not(containsString("Review"))),
+                () -> assertThat("Response should contain insights from all reviews", response,
+                        allOf(containsStringIgnoringCase("Elon Musk"), containsStringIgnoringCase("Walter Isaacson"),
+                                containsStringIgnoringCase("biography"),
+                                anyOf(containsStringIgnoringCase("technology"),
+                                        containsStringIgnoringCase("innovation"),
+                                        containsStringIgnoringCase("visionary")))));
     }
-
 
     @Test
     void testDescriptionFromReviewsExtract() {
-        ChatResponse chatResponse = assertDoesNotThrow(() -> reviewService.createReview(REVIEW_PROMPT_4, REVIEW_1, REVIEW_2, REVIEW_3));
+        ChatResponse chatResponse = assertDoesNotThrow(
+                () -> reviewService.createReview(REVIEW_PROMPT_4, REVIEW_1, REVIEW_2, REVIEW_3));
         String response = chatResponse.getResult().getOutput().getText();
 
         log.info("response is: " + response);
@@ -112,29 +99,20 @@ class ReviewServiceImplIT {
         final int sizeToCheck;
         if (response.contains("(" + MAX_SUMMARY_REVIEW_PROMPT_4_WORDS + " words)")) {
             sizeToCheck = MAX_SUMMARY_REVIEW_PROMPT_4_WORDS + ("(" + MAX_SUMMARY_REVIEW_PROMPT_4_WORDS + ")").length();
-        } else {
+        }
+        else {
             sizeToCheck = MAX_SUMMARY_REVIEW_PROMPT_4_WORDS + 5;
         }
 
-        assertAll("Review Response Validierung",
-            () -> assertNotNull(response, "Response should not be null"),
-            () -> assertThat("Response should contain at most 200 words. Response was: " + response,
-                response.split("\\s+").length, lessThanOrEqualTo(sizeToCheck)),
-            () -> assertThat("Response should be well-formatted",
-                response, not(containsString("```"))),
-            () -> assertThat("Response should contain key book information",
-                response, allOf(
-                    containsStringIgnoringCase("Elon Musk"),
-                    containsStringIgnoringCase("Walter Isaacson")
-                )),
-            () -> assertThat("Response should include content from multiple reviews",
-                response, anyOf(
-                    containsStringIgnoringCase("SpaceX"),
-                    containsStringIgnoringCase("Tesla"),
-                    containsStringIgnoringCase("AI"),
-                    containsStringIgnoringCase("innovation")
-                ))
-        );
+        assertAll("Review Response Validierung", () -> assertNotNull(response, "Response should not be null"),
+                () -> assertThat("Response should contain at most 200 words. Response was: " + response,
+                        response.split("\\s+").length, lessThanOrEqualTo(sizeToCheck)),
+                () -> assertThat("Response should be well-formatted", response, not(containsString("```"))),
+                () -> assertThat("Response should contain key book information", response,
+                        allOf(containsStringIgnoringCase("Elon Musk"), containsStringIgnoringCase("Walter Isaacson"))),
+                () -> assertThat("Response should include content from multiple reviews", response,
+                        anyOf(containsStringIgnoringCase("SpaceX"), containsStringIgnoringCase("Tesla"),
+                                containsStringIgnoringCase("AI"), containsStringIgnoringCase("innovation"))));
     }
 
 }

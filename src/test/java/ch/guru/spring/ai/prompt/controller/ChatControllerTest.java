@@ -34,7 +34,8 @@ class ChatControllerTest {
     void setUp() {
         try (AutoCloseable ignored = openMocks(this)) {
             log.info("Setting up mocks for QuestionControllerTest");
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             throw new RuntimeException("Failed to open mocks", e);
         }
     }
@@ -46,23 +47,17 @@ class ChatControllerTest {
         AssistantMessage expectedAssistantMessage = new AssistantMessage(expectedResponse);
         ChatResponse exptectedChatResponse = new ChatResponse(List.of(new Generation(expectedAssistantMessage)));
 
-        Conversation expectedConversation = new Conversation(null , exptectedChatResponse);
+        Conversation expectedConversation = new Conversation(null, exptectedChatResponse);
         when(chatService.checkAi()).thenReturn(expectedConversation);
 
         // When
         ResponseEntity<Conversation> responseEntity = chatController.checkAi();
         Assertions.assertNotNull(responseEntity.getBody());
-        String responseText = responseEntity.getBody()
-            .chatResponse()
-            .getResult()
-            .getOutput()
-            .getText();
+        String responseText = responseEntity.getBody().chatResponse().getResult().getOutput().getText();
 
         // Then
-        assertAll("AI Check Erfolgsfall",
-            () -> assertEquals(200, responseEntity.getStatusCode().value()),
-            () -> assertEquals(expectedResponse, responseText),
-            () -> verify(chatService).checkAi()
-        );
+        assertAll("AI Check Erfolgsfall", () -> assertEquals(200, responseEntity.getStatusCode().value()),
+                () -> assertEquals(expectedResponse, responseText), () -> verify(chatService).checkAi());
     }
+
 }

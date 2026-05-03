@@ -32,7 +32,8 @@ class ReviewControllerTest {
     void setUp() {
         try (AutoCloseable ignored = openMocks(this)) {
             log.info("Setting up mocks for QuestionControllerTest");
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             throw new RuntimeException("Failed to open mocks", e);
         }
     }
@@ -81,4 +82,5 @@ class ReviewControllerTest {
         assertEquals(expectedResponse, response.getBody());
         verify(reviewService).createReview(REVIEW_PROMPT_4, REVIEW_1, REVIEW_2, REVIEW_3);
     }
+
 }

@@ -1,21 +1,28 @@
 {
-    "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-    "extends": [
-        "mergeConfidence:all-badges",
-        "config:recommended"
-    ],
-    "ignorePresets": [
-        "workarounds:javaLTSVersions"
-    ],
-    "customDatasources": {
-        "custom_java": {
-            "defaultRegistryUrlTemplate": "https://api.adoptium.net/v3/info/available_releases",
-            "format": "json",
-            "transformTemplates": [
-                "{ \"releases\": $map(available_lts_releases, function($v) { { \"version\": $string($v) } }) }"
-            ]
-        }
+    "kubernetes": {"managerFilePatterns": [
+        "/k8s/.+\\.ya?ml$/",
+        "/helm-charts/templates/.+\\.ya?ml$/"
+    ]},
+    "helmv3": {"managerFilePatterns": ["/(^|/)Chart\\.ya?ml$/"]},
+    "maven-wrapper": {
+        "versioning": "maven",
+        "managerFilePatterns": [
+            "/(^|/)mvnw$/",
+            "/(^|/)mvnw.cmd$/",
+            "/(^|/).mvn/wrapper/maven-wrapper.properties$/"
+        ]
     },
+    "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+    "prConcurrentLimit": 0,
+    "ignorePresets": ["workarounds:javaLTSVersions"],
+    "dependencyDashboard": true,
+    "rebaseWhen": "conflicted",
+    "prHourlyLimit": 0,
+    "separateMinorPatch": true,
+    "automerge": false,
+    "baseBranchPatterns": ["master"],
+    "docker-compose": {"enabled": true},
+    "helm-values": {"managerFilePatterns": ["/helm-charts/.+/values\\.ya?ml$/"]},
     "enabledManagers": [
         "maven",
         "maven-wrapper",
@@ -25,113 +32,64 @@
         "helmv3",
         "custom.regex"
     ],
-    "maven-wrapper": {
-        "managerFilePatterns": [
-            "/(^|/)mvnw$/",
-            "/(^|/)mvnw.cmd$/",
-            "/(^|/).mvn/wrapper/maven-wrapper.properties$/"
-        ],
-        "versioning": "maven"
-    },
-    "docker-compose": {
-        "enabled": true
-    },
-    "kubernetes": {
-        "managerFilePatterns": [
-            "/k8s/.+\\.ya?ml$/",
-            "/helm-charts/templates/.+\\.ya?ml$/"
-        ]
-    },
-    "helm-values": {
-        "managerFilePatterns": [
-            "/helm-charts/.+/values\\.ya?ml$/"
-        ]
-    },
-    "helmv3": {
-        "managerFilePatterns": [
-            "/(^|/)Chart\\.ya?ml$/"
-        ]
-    },
-    "packageRules": [
-        {
-            "description": "Track both Spring Boot 3.x and 4.x separately",
-            "matchPackageNames": [
-                "org.springframework.boot:spring-boot-starter-parent"
-            ],
-            "separateMultipleMajor": true
-        },
-        {
-            "matchCategories": [
-                "docker"
-            ],
-            "registryUrls": [
-                "https://index.docker.io"
-            ]
-        },
-        {
-            "matchDatasources": [
-                "docker"
-            ],
-            "matchPackageNames": [
-                "/^domboeckli//"
-            ],
-            "versioning": "maven",
-            "allowedVersions": "/^[0-9]+\\.[0-9]+\\.[0-9]+(-SNAPSHOT)?$/",
-            "ignoreUnstable": false,
-            "automerge": false,
-            "automergeType": "pr",
-            "ignoreTests": true
-        },
-        {
-            "matchDatasources": [
-                "docker"
-            ],
-            "matchPackageNames": [
-                "!/^domboeckli//"
-            ],
-            "automerge": false,
-            "automergeType": "pr",
-            "ignoreTests": true
-        }
+    "separateMajorMinor": true,
+    "extends": [
+        "mergeConfidence:all-badges",
+        "config:recommended"
     ],
     "customManagers": [
         {
-            "description": "Parse and change the java version from pom.xml",
             "customType": "regex",
             "datasourceTemplate": "custom.custom_java",
+            "description": "Parse and change the java version from pom.xml",
+            "autoReplaceStringTemplate": "<java.version>{{{newValue}}}<\/java.version>",
+            "managerFilePatterns": ["/(^|\\/)pom\\.xml$/"],
             "depNameTemplate": "java",
-            "managerFilePatterns": [
-                "/(^|\\/)pom\\.xml$/"
-            ],
-            "matchStrings": [
-                "<java\\.version>(?<currentValue>\\d+)</java\\.version>"
-            ],
-            "autoReplaceStringTemplate": "<java.version>{{{newValue}}}</java.version>"
+            "matchStrings": ["<java\\.version>(?<currentValue>\\d+)<\/java\\.version>"]
         },
         {
-            "description": "Parse and change JAVA_VERSION in GitHub workflows",
             "customType": "regex",
             "datasourceTemplate": "custom.custom_java",
+            "description": "Parse and change JAVA_VERSION in GitHub workflows",
+            "autoReplaceStringTemplate": "  JAVA_VERSION: {{{newValue}}}",
+            "managerFilePatterns": ["/^\\.github\\/workflows\\/(release|maven-build)\\.ya?ml$/"],
             "depNameTemplate": "java",
-            "managerFilePatterns": [
-                "/^\\.github\\/workflows\\/(release|maven-build)\\.ya?ml$/"
-            ],
-            "matchStrings": [
-                "  JAVA_VERSION:[\\t ]*(?<currentValue>\\d+)"
-            ],
-            "autoReplaceStringTemplate": "  JAVA_VERSION: {{{newValue}}}"
+            "matchStrings": ["  JAVA_VERSION:[\\t ]*(?<currentValue>\\d+)"]
+        }
+    ],
+    "packageRules": [
+        {
+            "matchPackageNames": ["org.springframework.boot:spring-boot-starter-parent"],
+            "separateMultipleMajor": true,
+            "description": "Track both Spring Boot 3.x and 4.x separately"
+        },
+        {
+            "matchCategories": ["docker"],
+            "registryUrls": ["https://index.docker.io"]
+        },
+        {
+            "matchDatasources": ["docker"],
+            "matchPackageNames": ["/^domboeckli//"],
+            "versioning": "maven",
+            "ignoreUnstable": false,
+            "automerge": false,
+            "automergeType": "pr",
+            "ignoreTests": true,
+            "allowedVersions": "/^[0-9]+\\.[0-9]+\\.[0-9]+(-SNAPSHOT)?$/"
+        },
+        {
+            "matchDatasources": ["docker"],
+            "matchPackageNames": ["!/^domboeckli//"],
+            "automerge": false,
+            "automergeType": "pr",
+            "ignoreTests": true
         }
     ],
     "platformAutomerge": false,
-    "dependencyDashboard": true,
-    "prHourlyLimit": 0,
-    "prConcurrentLimit": 0,
-    "baseBranchPatterns": [
-        "master"
-    ],
     "branchPrefix": "feature/renovate-",
-    "separateMinorPatch": true,
-    "separateMajorMinor": true,
-    "automerge": false,
-    "rebaseWhen": "conflicted"
+    "customDatasources": {"custom_java": {
+        "defaultRegistryUrlTemplate": "https://api.adoptium.net/v3/info/available_releases",
+        "format": "json",
+        "transformTemplates": ["{ \"releases\": $map(available_lts_releases, function($v) { { \"version\": $string($v) } }) }"]
+    }}
 }

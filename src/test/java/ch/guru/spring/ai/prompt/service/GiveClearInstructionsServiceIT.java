@@ -32,64 +32,42 @@ class GiveClearInstructionsServiceIT {
 
     @ParameterizedTest
     @MethodSource("provideTestParameters")
-    void testEnumerateInstructions(String inputText, List<String> expectedPhrases, boolean hasSteps, long minimumSteps) {
-        ChatResponse chatResponse = assertDoesNotThrow(() -> giveClearInstructionsService.enumerateInstructions(inputText));
+    void testEnumerateInstructions(String inputText, List<String> expectedPhrases, boolean hasSteps,
+            long minimumSteps) {
+        ChatResponse chatResponse = assertDoesNotThrow(
+                () -> giveClearInstructionsService.enumerateInstructions(inputText));
         String response = chatResponse.getResult().getOutput().getText();
 
         log.info("response is: " + response);
 
-        assertAll(
-            () -> assertNotNull(response, "Response should not be null"),
-            () -> {
-                if (hasSteps) {
-                    assertThat(response, matchesPattern("(?is).*step\\s*\\d+.*"));
-                    assertNotNull(response);
-                    assertThat(
-                        response.toLowerCase().lines()
-                            .filter(line -> line.matches(".*step\\s*\\d+.*"))
-                            .count(),
-                        greaterThanOrEqualTo(minimumSteps)
-                    );
-                } else {
-                    assertNotNull(response);
-                    assertThat(response.toLowerCase(), containsString("no steps provided"));
-                }
-            },
-            () -> {
-                for (String phrase : expectedPhrases) {
-                    assertThat(response, containsStringIgnoringCase(phrase));
-                }
+        assertAll(() -> assertNotNull(response, "Response should not be null"), () -> {
+            if (hasSteps) {
+                assertThat(response, matchesPattern("(?is).*step\\s*\\d+.*"));
+                assertNotNull(response);
+                assertThat(response.toLowerCase().lines().filter(line -> line.matches(".*step\\s*\\d+.*")).count(),
+                        greaterThanOrEqualTo(minimumSteps));
             }
-        );
+            else {
+                assertNotNull(response);
+                assertThat(response.toLowerCase(), containsString("no steps provided"));
+            }
+        }, () -> {
+            for (String phrase : expectedPhrases) {
+                assertThat(response, containsStringIgnoringCase(phrase));
+            }
+        });
     }
 
     private static Stream<Arguments> provideTestParameters() {
         return Stream.of(
-            Arguments.of(
-                TEXT_COOK_A_STEAK,
-                List.of("room temperature", "olive oil", "salt", "pepper", "minutes"),
-                true,
-                5L
-            ),
-            Arguments.of(
-                TEXT_COOK_A_STEAK + " Give the directions using the tone of Snoop Dog",
-                List.of("olive oil", "salt", "pepper", "min"),
-                true,
-                5L
-            ),
-            Arguments.of(
-                TEXT_COOK_A_STEAK + " Give the directions using the tone, tools and imagination of JK Rowling in a Harry Potter book",
-                List.of("olive oil", "salt", "pepper", "min"),
-                true,
-                5L
-            ),
-            Arguments.of(
-                TEXT_BOOK_DESCRIPTION,
-                List.of("No steps provided"),
-                false,
-                0L
-            )
-        );
+                Arguments.of(TEXT_COOK_A_STEAK, List.of("room temperature", "olive oil", "salt", "pepper", "minutes"),
+                        true, 5L),
+                Arguments.of(TEXT_COOK_A_STEAK + " Give the directions using the tone of Snoop Dog",
+                        List.of("olive oil", "salt", "pepper", "min"), true, 5L),
+                Arguments.of(TEXT_COOK_A_STEAK
+                        + " Give the directions using the tone, tools and imagination of JK Rowling in a Harry Potter book",
+                        List.of("olive oil", "salt", "pepper", "min"), true, 5L),
+                Arguments.of(TEXT_BOOK_DESCRIPTION, List.of("No steps provided"), false, 0L));
     }
 
     @ParameterizedTest
@@ -104,43 +82,38 @@ class GiveClearInstructionsServiceIT {
         log.info("response is: " + response);
         assertNotNull(response);
         switch (format) {
-            case XML -> assertAll("XML Format",
-                () -> assertTrue(response.startsWith("<?xml"), "XML sollte mit <?xml beginnen"),
-                () -> assertThat(response, containsString("<cars>")),
-                () -> assertThat(response, containsString("<car>")),
-                () -> assertEquals(4, countOccurrences(response, "<car>"))
-            );
+            case XML ->
+                assertAll("XML Format", () -> assertTrue(response.startsWith("<?xml"), "XML sollte mit <?xml beginnen"),
+                        () -> assertThat(response, containsString("<cars>")),
+                        () -> assertThat(response, containsString("<car>")),
+                        () -> assertEquals(4, countOccurrences(response, "<car>")));
             case JSON -> assertAll("JSON Format",
-                () -> assertTrue(response.trim().startsWith("{"), "JSON sollte mit { beginnen"),
-                () -> assertTrue(response.trim().endsWith("}"), "JSON sollte mit } enden"),
-                () -> assertThat(response, containsString("\"cars\"")),
-                () -> assertThat(response, containsString("\"make\"")),
-                () -> assertThat(response, containsString("\"model\"")),
-                () -> assertThat(response, containsString("\"year\"")),
-                () -> assertThat(response, containsString("\"color\"")),
-                () -> assertEquals(4, countOccurrences(response, "\"make\""))
-            );
+                    () -> assertTrue(response.trim().startsWith("{"), "JSON sollte mit { beginnen"),
+                    () -> assertTrue(response.trim().endsWith("}"), "JSON sollte mit } enden"),
+                    () -> assertThat(response, containsString("\"cars\"")),
+                    () -> assertThat(response, containsString("\"make\"")),
+                    () -> assertThat(response, containsString("\"model\"")),
+                    () -> assertThat(response, containsString("\"year\"")),
+                    () -> assertThat(response, containsString("\"color\"")),
+                    () -> assertEquals(4, countOccurrences(response, "\"make\"")));
             case YAML -> assertAll("YAML Format",
-                () -> assertTrue(response.trim().startsWith("cars:"), "YAML sollte mit cars: beginnen"),
-                () -> assertThat(response, containsString("make:")),
-                () -> assertThat(response, containsString("model:")),
-                () -> assertThat(response, containsString("year:")),
-                () -> assertThat(response, containsString("color:")),
-                () -> assertEquals(4, countOccurrences(response, "make:"))
-            );
+                    () -> assertTrue(response.trim().startsWith("cars:"), "YAML sollte mit cars: beginnen"),
+                    () -> assertThat(response, containsString("make:")),
+                    () -> assertThat(response, containsString("model:")),
+                    () -> assertThat(response, containsString("year:")),
+                    () -> assertThat(response, containsString("color:")),
+                    () -> assertEquals(4, countOccurrences(response, "make:")));
         }
 
     }
 
     private static Stream<Arguments> provideFormatTestParameters() {
-        return Stream.of(
-            Arguments.of(ResponseResultFormat.XML),
-            Arguments.of(ResponseResultFormat.JSON),
-            Arguments.of(ResponseResultFormat.YAML)
-        );
+        return Stream.of(Arguments.of(ResponseResultFormat.XML), Arguments.of(ResponseResultFormat.JSON),
+                Arguments.of(ResponseResultFormat.YAML));
     }
 
     private int countOccurrences(String str, String searchStr) {
         return (str.length() - str.replace(searchStr, "").length()) / searchStr.length();
     }
+
 }

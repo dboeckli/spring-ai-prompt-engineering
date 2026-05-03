@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import static ch.guru.spring.ai.prompt.dto.Conversation.PROMPT_CHECK_AI;
 
-
 @Service
 @RequiredArgsConstructor
 @Slf4j
@@ -24,9 +23,7 @@ public class OpenAIServiceImpl implements OpenAIService {
         Prompt prompt = new Prompt(new UserMessage(PROMPT_CHECK_AI));
         ChatResponse chatResponse = chatModel.call(prompt);
 
-        return new Conversation(
-            prompt,
-            chatResponse
-        );
+        return new Conversation(prompt, chatResponse);
     }
+
 }

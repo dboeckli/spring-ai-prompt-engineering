@@ -20,7 +20,8 @@ public class DeepseekApiKeyExtension implements BeforeAllCallback {
     public void beforeAll(ExtensionContext context) throws Exception {
         if (System.getenv(DEEPSEEK_API_KEY_NAME) != null && !System.getenv(DEEPSEEK_API_KEY_NAME).isEmpty()) {
             log.info("{} is already set in the environment.", DEEPSEEK_API_KEY_NAME);
-        } else {
+        }
+        else {
             Path envFile = Paths.get(DEEPSEEK_API_ENV_FILE);
             if (Files.exists(envFile)) {
                 List<String> lines = Files.readAllLines(envFile);
@@ -31,9 +32,12 @@ public class DeepseekApiKeyExtension implements BeforeAllCallback {
                     }
                 }
                 log.info("{} has been set from {} file", DEEPSEEK_API_KEY_NAME, DEEPSEEK_API_ENV_FILE);
-            } else {
-                throw new RuntimeException(DEEPSEEK_API_KEY_NAME + " is not set in the environment or " + DEEPSEEK_API_ENV_FILE + " file.");
+            }
+            else {
+                throw new RuntimeException(DEEPSEEK_API_KEY_NAME + " is not set in the environment or "
+                        + DEEPSEEK_API_ENV_FILE + " file.");
             }
         }
     }
+
 }

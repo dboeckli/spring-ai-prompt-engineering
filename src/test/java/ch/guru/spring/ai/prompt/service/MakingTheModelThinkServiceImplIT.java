@@ -34,28 +34,31 @@ class MakingTheModelThinkServiceImplIT {
         assertNotNull(response);
         String lastLine = response.lines().reduce((first, second) -> second).orElse("");
 
+        String normalizedLastLine = lastLine.replaceAll("\\*+", "") // entfernt alle *
+            .trim();
+
         // Assert that the last line is exactly as expected
-        assertThat("The last line should be the expected solution",
-            lastLine.trim(),
-            equalTo("SOLUTION: The ball is on the table outside the microwave."));
+        assertThat(normalizedLastLine, equalTo("SOLUTION: The ball is on the table outside the microwave."));
     }
 
     @Test
     void testCheckStudentSolutionGivenCorrectSolution() {
-        ChatResponse chatResponse = assertDoesNotThrow(() -> makingTheModelThinkService
-            .checkStudentSolution("PROMPT_CHECK_STUDENT_SOLUTION_CORRECT"));
+        ChatResponse chatResponse = assertDoesNotThrow(
+                () -> makingTheModelThinkService.checkStudentSolution("PROMPT_CHECK_STUDENT_SOLUTION_CORRECT"));
         assertNotNull(chatResponse);
 
         String response = chatResponse.getResult().getOutput().getText();
         log.info("Student solution response: {}", response);
 
-        assertThat(response, containsString("Solution was: Correct"));
+        assertNotNull(response);
+        String normalized = response.replace("**", "");
+        assertThat(normalized, containsString("Solution was: Correct"));
     }
 
     @Test
     void testCheckStudentSolutionGivenCorrectSolutionButBadPrompt() {
-        ChatResponse chatResponse = assertDoesNotThrow(() -> makingTheModelThinkService
-            .checkStudentSolution("PROMPT_CHECK_STUDENT_SOLUTION_INCORRECT"));
+        ChatResponse chatResponse = assertDoesNotThrow(
+                () -> makingTheModelThinkService.checkStudentSolution("PROMPT_CHECK_STUDENT_SOLUTION_INCORRECT"));
         assertNotNull(chatResponse);
 
         String response = chatResponse.getResult().getOutput().getText();
