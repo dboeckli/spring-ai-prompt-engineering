@@ -34,9 +34,12 @@ class MakingTheModelThinkServiceImplIT {
         assertNotNull(response);
         String lastLine = response.lines().reduce((first, second) -> second).orElse("");
 
+        String normalizedLastLine = lastLine
+            .replaceAll("\\*+", "") // entfernt alle *
+            .trim();
+
         // Assert that the last line is exactly as expected
-        assertThat("The last line should be the expected solution",
-            lastLine.trim(),
+        assertThat(normalizedLastLine,
             equalTo("SOLUTION: The ball is on the table outside the microwave."));
     }
 

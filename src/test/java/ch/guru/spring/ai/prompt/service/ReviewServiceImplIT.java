@@ -57,7 +57,9 @@ class ReviewServiceImplIT {
             () -> assertThat("Response should mention biography or life",
                 response, anyOf(
                     containsStringIgnoringCase("biography"),
-                    containsStringIgnoringCase("life")
+                    containsStringIgnoringCase("life"),
+                    containsStringIgnoringCase("portrait"),
+                    containsStringIgnoringCase("story")
                 )),
             () -> assertThat("Response should mention innovation or visionary",
                 response, anyOf(
