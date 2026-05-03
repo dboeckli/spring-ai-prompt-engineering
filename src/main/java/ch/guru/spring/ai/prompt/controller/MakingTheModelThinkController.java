@@ -34,7 +34,8 @@ public class MakingTheModelThinkController {
         if (availablePrompts.contains(request.getPromptName())) {
             ChatResponse chatResponse = makingTheModelThinkService.checkStudentSolution(request.getPromptName());
             return ResponseEntity.ok(chatResponse.getResult().getOutput().getText());
-        } else {
+        }
+        else {
             String errorMessage = "Invalid promptName. Allowed values are: " + String.join(", ", availablePrompts);
             return ResponseEntity.badRequest().body(errorMessage);
         }
@@ -43,7 +44,9 @@ public class MakingTheModelThinkController {
     @Data
     @Builder
     public static class StudentSolutionRequest {
+
         private String promptName;
+
     }
 
     @GetMapping("/summarize-and-translate")

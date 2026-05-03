@@ -31,7 +31,8 @@ public class MakingTheModelThinkServiceImpl implements MakingTheModelThinkServic
         ChatResponse chatResponse = chatModel.call(promptTemplate.create(Map.of("text", STORY)));
         try {
             log.info("ChatResponse:\n" + objectMapper.writeValueAsString(chatResponse));
-        } catch (JsonProcessingException e) {
+        }
+        catch (JsonProcessingException e) {
             log.error("Error formatting ChatResponse: {}", e.getMessage());
         }
         return chatResponse;
@@ -44,7 +45,8 @@ public class MakingTheModelThinkServiceImpl implements MakingTheModelThinkServic
             Field field = MakingTheModelThinkConstants.class.getDeclaredField(promptName);
             field.setAccessible(true);
             prompt = (String) field.get(null);
-        } catch (NoSuchFieldException | IllegalAccessException e) {
+        }
+        catch (NoSuchFieldException | IllegalAccessException e) {
             log.error("Error retrieving prompt: {}", e.getMessage());
             throw new IllegalArgumentException("Invalid prompt name: " + promptName);
         }
@@ -53,7 +55,8 @@ public class MakingTheModelThinkServiceImpl implements MakingTheModelThinkServic
         ChatResponse chatResponse = chatModel.call(promptTemplate.create());
         try {
             log.info("ChatResponse:\n" + objectMapper.writeValueAsString(chatResponse));
-        } catch (JsonProcessingException e) {
+        }
+        catch (JsonProcessingException e) {
             log.error("Error formatting ChatResponse: {}", e.getMessage());
         }
         return chatResponse;
@@ -66,9 +69,11 @@ public class MakingTheModelThinkServiceImpl implements MakingTheModelThinkServic
         ChatResponse chatResponse = chatModel.call(promptTemplate.create());
         try {
             log.info("ChatResponse:\n" + objectMapper.writeValueAsString(chatResponse));
-        } catch (JsonProcessingException e) {
+        }
+        catch (JsonProcessingException e) {
             log.error("Error formatting ChatResponse: {}", e.getMessage());
         }
         return chatResponse;
     }
+
 }

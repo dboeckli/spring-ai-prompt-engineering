@@ -8,6 +8,6 @@ public interface MakingTheModelThinkService {
 
     ChatResponse checkStudentSolution(String promptName);
 
-    ChatResponse  enigmaWithBall();
+    ChatResponse enigmaWithBall();
 
 }

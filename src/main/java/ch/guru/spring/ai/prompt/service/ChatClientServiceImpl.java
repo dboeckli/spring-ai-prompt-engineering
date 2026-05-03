@@ -22,14 +22,9 @@ public class ChatClientServiceImpl implements ChatClientService {
 
     @Override
     public Conversation checkAi() {
-        ChatResponse chatResponse = chatClient.prompt()
-            .user(PROMPT_CHECK_AI)
-            .call()
-            .chatResponse();
+        ChatResponse chatResponse = chatClient.prompt().user(PROMPT_CHECK_AI).call().chatResponse();
 
-        return new Conversation(
-            new Prompt(new UserMessage(PROMPT_CHECK_AI)),
-            chatResponse
-        );
+        return new Conversation(new Prompt(new UserMessage(PROMPT_CHECK_AI)), chatResponse);
     }
+
 }

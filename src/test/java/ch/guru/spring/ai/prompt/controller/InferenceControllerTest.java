@@ -31,7 +31,8 @@ class InferenceControllerTest {
     void setUp() {
         try (AutoCloseable ignored = openMocks(this)) {
             log.info("Setting up mocks for GiveClearInstructionsControllerTest");
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             throw new RuntimeException("Failed to open mocks", e);
         }
     }
@@ -95,4 +96,5 @@ class InferenceControllerTest {
         assertEquals(expectedResponse, response.getBody());
         verify(inferenceService).inferTopics();
     }
+
 }

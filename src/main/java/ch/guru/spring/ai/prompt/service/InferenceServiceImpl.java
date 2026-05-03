@@ -27,16 +27,12 @@ public class InferenceServiceImpl implements InferenceService {
     public ChatResponse getSentimentsOfReview() {
         PromptTemplate promptTemplate = new PromptTemplate(PROMPT_SENTIMENT);
 
-        ChatResponse chatResponse = chatModel.call(promptTemplate.create(Map.of(
-            "review1", REVIEW_1,
-            "review2", REVIEW_2,
-            "review3", REVIEW_3,
-            "review4", REVIEW_4,
-            "review5", REVIEW_5,
-            "review6", REVIEW_6)));
+        ChatResponse chatResponse = chatModel.call(promptTemplate.create(Map.of("review1", REVIEW_1, "review2",
+                REVIEW_2, "review3", REVIEW_3, "review4", REVIEW_4, "review5", REVIEW_5, "review6", REVIEW_6)));
         try {
             log.info("ChatResponse:\n" + objectMapper.writeValueAsString(chatResponse));
-        } catch (JsonProcessingException e) {
+        }
+        catch (JsonProcessingException e) {
             log.error("Error formatting ChatResponse: {}", e.getMessage());
         }
         return chatResponse;
@@ -46,16 +42,12 @@ public class InferenceServiceImpl implements InferenceService {
     public ChatResponse getEmotionsOfReview() {
         PromptTemplate promptTemplate = new PromptTemplate(PROMPT_EMOTION);
 
-        ChatResponse chatResponse = chatModel.call(promptTemplate.create(Map.of(
-            "review1", REVIEW_1,
-            "review2", REVIEW_2,
-            "review3", REVIEW_3,
-            "review4", REVIEW_4,
-            "review5", REVIEW_5,
-            "review6", REVIEW_6)));
+        ChatResponse chatResponse = chatModel.call(promptTemplate.create(Map.of("review1", REVIEW_1, "review2",
+                REVIEW_2, "review3", REVIEW_3, "review4", REVIEW_4, "review5", REVIEW_5, "review6", REVIEW_6)));
         try {
             log.info("ChatResponse:\n" + objectMapper.writeValueAsString(chatResponse));
-        } catch (JsonProcessingException e) {
+        }
+        catch (JsonProcessingException e) {
             log.error("Error formatting ChatResponse: {}", e.getMessage());
         }
         return chatResponse;
@@ -65,16 +57,12 @@ public class InferenceServiceImpl implements InferenceService {
     public ChatResponse getAngersOfReview() {
         PromptTemplate promptTemplate = new PromptTemplate(PROMPT_ANGER);
 
-        ChatResponse chatResponse = chatModel.call(promptTemplate.create(Map.of(
-            "review1", REVIEW_1,
-            "review2", REVIEW_2,
-            "review3", REVIEW_3,
-            "review4", REVIEW_4,
-            "review5", REVIEW_5,
-            "review6", REVIEW_6)));
+        ChatResponse chatResponse = chatModel.call(promptTemplate.create(Map.of("review1", REVIEW_1, "review2",
+                REVIEW_2, "review3", REVIEW_3, "review4", REVIEW_4, "review5", REVIEW_5, "review6", REVIEW_6)));
         try {
             log.info("ChatResponse:\n" + objectMapper.writeValueAsString(chatResponse));
-        } catch (JsonProcessingException e) {
+        }
+        catch (JsonProcessingException e) {
             log.error("Error formatting ChatResponse: {}", e.getMessage());
         }
         return chatResponse;
@@ -87,10 +75,12 @@ public class InferenceServiceImpl implements InferenceService {
         ChatResponse chatResponse = chatModel.call(promptTemplate.create(Map.of("story", InferenceConstants.STORY)));
         try {
             log.info("ChatResponse:\n" + objectMapper.writeValueAsString(chatResponse));
-        } catch (JsonProcessingException e) {
+        }
+        catch (JsonProcessingException e) {
             log.error("Error formatting ChatResponse: {}", e.getMessage());
         }
         return chatResponse;
 
     }
+
 }

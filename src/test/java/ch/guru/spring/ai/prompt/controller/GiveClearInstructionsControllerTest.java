@@ -40,7 +40,8 @@ class GiveClearInstructionsControllerTest {
     void setUp() {
         try (AutoCloseable ignored = openMocks(this)) {
             log.info("Setting up mocks for GiveClearInstructionsControllerTest");
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             throw new RuntimeException("Failed to open mocks", e);
         }
     }
@@ -107,11 +108,9 @@ class GiveClearInstructionsControllerTest {
     }
 
     private static Stream<Arguments> provideFormatsForTesting() {
-        return Stream.of(
-            Arguments.of(ResponseResultFormat.JSON.name(), 200),
-            Arguments.of(ResponseResultFormat.XML.name(), 200),
-            Arguments.of(ResponseResultFormat.YAML.name(), 200)
-        );
+        return Stream.of(Arguments.of(ResponseResultFormat.JSON.name(), 200),
+                Arguments.of(ResponseResultFormat.XML.name(), 200),
+                Arguments.of(ResponseResultFormat.YAML.name(), 200));
     }
 
 }

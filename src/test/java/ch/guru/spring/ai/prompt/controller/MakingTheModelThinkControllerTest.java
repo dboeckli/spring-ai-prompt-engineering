@@ -34,7 +34,8 @@ class MakingTheModelThinkControllerTest {
     void setUp() {
         try (AutoCloseable ignored = openMocks(this)) {
             log.info("Setting up mocks for MakingTheModelThinkControllerTest");
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             throw new RuntimeException("Failed to open mocks", e);
         }
     }
@@ -61,7 +62,8 @@ class MakingTheModelThinkControllerTest {
 
         // Create a valid ChatResponse
         ChatResponse chatResponse = new ChatResponse(List.of(new Generation(expectedAssistantMessage)));
-        when(makingTheModelThinkService.checkStudentSolution("PROMPT_CHECK_STUDENT_SOLUTION_CORRECT")).thenReturn(chatResponse);
+        when(makingTheModelThinkService.checkStudentSolution("PROMPT_CHECK_STUDENT_SOLUTION_CORRECT"))
+            .thenReturn(chatResponse);
 
         StudentSolutionRequest studentSolutionRequest = StudentSolutionRequest.builder()
             .promptName("PROMPT_CHECK_STUDENT_SOLUTION_CORRECT")
@@ -80,7 +82,8 @@ class MakingTheModelThinkControllerTest {
 
         // Create a valid ChatResponse
         ChatResponse chatResponse = new ChatResponse(List.of(new Generation(expectedAssistantMessage)));
-        when(makingTheModelThinkService.checkStudentSolution("PROMPT_CHECK_STUDENT_SOLUTION_INCORRECT")).thenReturn(chatResponse);
+        when(makingTheModelThinkService.checkStudentSolution("PROMPT_CHECK_STUDENT_SOLUTION_INCORRECT"))
+            .thenReturn(chatResponse);
 
         StudentSolutionRequest studentSolutionRequest = StudentSolutionRequest.builder()
             .promptName("PROMPT_CHECK_STUDENT_SOLUTION_INCORRECT")
@@ -100,8 +103,9 @@ class MakingTheModelThinkControllerTest {
         ResponseEntity<String> response = makingTheModelThinkController.checkStudentSolution(studentSolutionRequest);
 
         assertEquals(BAD_REQUEST.value(), response.getStatusCode().value());
-        assertEquals("Invalid promptName. Allowed values are: PROMPT_CHECK_STUDENT_SOLUTION_INCORRECT, PROMPT_CHECK_STUDENT_SOLUTION_CORRECT",
-            response.getBody());
+        assertEquals(
+                "Invalid promptName. Allowed values are: PROMPT_CHECK_STUDENT_SOLUTION_INCORRECT, PROMPT_CHECK_STUDENT_SOLUTION_CORRECT",
+                response.getBody());
         verify(makingTheModelThinkService, times(0)).checkStudentSolution("WRONG_PARAM");
     }
 
@@ -119,6 +123,5 @@ class MakingTheModelThinkControllerTest {
         assertEquals(expectedResponse, response.getBody());
         verify(makingTheModelThinkService).summarizeAndTranslate();
     }
-
 
 }

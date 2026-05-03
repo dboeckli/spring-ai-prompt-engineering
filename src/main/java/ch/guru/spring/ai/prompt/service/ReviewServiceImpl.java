@@ -29,14 +29,13 @@ public class ReviewServiceImpl implements ReviewService {
 
         Map<String, Object> reviewMap = new HashMap<>();
         AtomicInteger counter = new AtomicInteger(1);
-        Arrays.stream(reviews).forEach(review ->
-            reviewMap.put("review" + counter.getAndIncrement(), review)
-        );
+        Arrays.stream(reviews).forEach(review -> reviewMap.put("review" + counter.getAndIncrement(), review));
 
         ChatResponse chatResponse = chatModel.call(promptTemplate.create(reviewMap));
         try {
             log.info("ChatResponse:\n" + objectMapper.writeValueAsString(chatResponse));
-        } catch (JsonProcessingException e) {
+        }
+        catch (JsonProcessingException e) {
             log.error("Error formatting ChatResponse: {}", e.getMessage());
         }
 

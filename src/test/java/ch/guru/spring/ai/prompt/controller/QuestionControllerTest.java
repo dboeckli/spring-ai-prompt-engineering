@@ -33,7 +33,8 @@ class QuestionControllerTest {
     void setUp() {
         try (AutoCloseable ignored = openMocks(this)) {
             log.info("Setting up mocks for QuestionControllerTest");
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             throw new RuntimeException("Failed to open mocks", e);
         }
     }
@@ -44,19 +45,16 @@ class QuestionControllerTest {
         AssistantMessage expectedAssistantMessage = new AssistantMessage(expectedResponse);
         ChatResponse exptectedChatResponse = new ChatResponse(List.of(new Generation(expectedAssistantMessage)));
 
-        Conversation expectedConversation = new Conversation(null , exptectedChatResponse);
+        Conversation expectedConversation = new Conversation(null, exptectedChatResponse);
         when(openAIService.checkAi()).thenReturn(expectedConversation);
 
         ResponseEntity<Conversation> responseEntity = questionController.checkAi();
         Assertions.assertNotNull(responseEntity.getBody());
-        String responseText = responseEntity.getBody()
-            .chatResponse()
-            .getResult()
-            .getOutput()
-            .getText();
+        String responseText = responseEntity.getBody().chatResponse().getResult().getOutput().getText();
 
         assertEquals(200, responseEntity.getStatusCode().value());
         assertEquals(expectedResponse, responseText);
         verify(openAIService).checkAi();
     }
+
 }

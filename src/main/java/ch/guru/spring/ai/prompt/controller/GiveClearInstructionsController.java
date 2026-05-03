@@ -42,11 +42,11 @@ public class GiveClearInstructionsController {
             ResponseResultFormat enumFormat = ResponseResultFormat.valueOf(format.toUpperCase());
             ChatResponse chatResponse = giveClearInstructionsService.listCars(enumFormat);
             return ResponseEntity.ok(chatResponse.getResult().getOutput().getText());
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity
-                .badRequest()
-                .body("Ungültiges Format. Erlaubte Werte sind: " +
-                    Arrays.toString(ResponseResultFormat.values()));
+        }
+        catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest()
+                .body("Ungültiges Format. Erlaubte Werte sind: " + Arrays.toString(ResponseResultFormat.values()));
         }
     }
+
 }
