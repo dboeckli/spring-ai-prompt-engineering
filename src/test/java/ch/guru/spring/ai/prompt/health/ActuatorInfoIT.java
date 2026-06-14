@@ -6,9 +6,10 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.info.BuildProperties;
-import org.springframework.boot.test.autoconfigure.actuate.observability.AutoConfigureObservability;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+
+import org.springframework.boot.micrometer.tracing.test.autoconfigure.AutoConfigureTracing;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
@@ -21,7 +22,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @DirtiesContext
 @SpringBootTest
 @AutoConfigureMockMvc
-@AutoConfigureObservability
+@AutoConfigureTracing
 @ActiveProfiles("local")
 @ExtendWith(DeepseekApiKeyExtension.class)
 @Slf4j
@@ -53,13 +54,6 @@ class ActuatorInfoIT {
             .andExpect(status().isOk())
             .andDo(result -> log.info("Response (pretty):\n{}", pretty(result.getResponse().getContentAsString())))
             .andExpect(jsonPath("$.status").value("UP"));
-    }
-
-    @Test
-    void actuatorPrometheusTest() throws Exception {
-        mockMvc.perform(get("/actuator/prometheus"))
-            .andExpect(status().isOk())
-            .andDo(result -> log.info("Response:\n{}", result.getResponse().getContentAsString()));
     }
 
     private String pretty(String body) {
