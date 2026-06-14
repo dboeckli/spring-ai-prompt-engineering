@@ -2,6 +2,10 @@ spring:
   application:
     name: spring-ai-prompt-engineering
 
+  threads:
+    virtual:
+      enabled: true
+
   ai:
     deepseek:
       # Pass API key as environment variable, e.g. -DEEPSEEK_API_KEY=your-api-key
@@ -9,10 +13,9 @@ spring:
       api-key: ${DEEPSEEK_API_KEY}
       chat:
         api-key: ${DEEPSEEK_API_KEY}
-        options:
-          model: deepseek-coder
-          temperature: 0.0
-          max-tokens: 2000
+        model: deepseek-coder
+        temperature: 0.0
+        max-tokens: 2000
 
     chat:
       client:
@@ -79,17 +82,24 @@ management:
     metrics:
       export:
         enabled: false
-    tracing:
-      export:
+  tracing:
+    export:
+      otlp:
         enabled: false
-    logging:
-      export:
-        enabled: false
+    sampling:
+      probability: 1.0
 
   logging:
     export:
       enabled: false
+      otlp:
+        enabled: false
+
   simple:
     metrics:
       export:
         enabled: false
+
+logging:
+  level:
+    org.springframework.web.filter.CommonsRequestLoggingFilter: DEBUG
