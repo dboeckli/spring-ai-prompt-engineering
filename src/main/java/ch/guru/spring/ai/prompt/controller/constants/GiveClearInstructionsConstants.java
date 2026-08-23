@@ -5,29 +5,38 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public final class GiveClearInstructionsConstants {
 
-    public final static String PROMPT_LIST_OF_CARS = """
-            You are a car data generator.
-            Generate a list of exactly 4 made-up cars in <%format%> format.
-            Each car must have these attributes: make, model, year (between 2020-2030), and color.
-
-            Format specific instructions:
+    public final static String XML_FORMAT_INSTRUCTIONS = """
             For XML format:
             - Start with exactly: <?xml version="1.0" encoding="UTF-8"?>
             - Use a root element <cars>
             - Each car should be in a <car> element
             - Attributes should be elements: <make>, <model>, <year>, <color>
+            """;
 
+    public final static String JSON_FORMAT_INSTRUCTIONS = """
             For JSON format:
             - Start with { and end with }
             - Use "cars" as root array
             - Format: {"cars": [{"make": "...", "model": "...", "year": YYYY, "color": "..."}]}
             - Year must be a number, not a string
+            - Return ONLY the JSON object, do not output XML or any other format
+            """;
 
+    public final static String YAML_FORMAT_INSTRUCTIONS = """
             For YAML format:
             - Start with "cars:"
             - Each car must be a list item starting with "-"
             - Each car should have make:, model:, year:, and color: as properties
             - Use proper YAML indentation (2 spaces)
+            """;
+
+    public final static String PROMPT_LIST_OF_CARS = """
+            You are a car data generator.
+            Generate a list of exactly 4 made-up cars in ${format} format.
+            Each car must have these attributes: make, model, year (between 2020-2030), and color.
+
+            Format specific instructions:
+            ${format_instructions}
 
             Return ONLY the raw content WITHOUT any code blocks, markdown, or explanatory text.
             """;
