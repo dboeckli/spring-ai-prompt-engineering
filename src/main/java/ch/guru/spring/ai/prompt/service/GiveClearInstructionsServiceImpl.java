@@ -12,8 +12,11 @@ import tools.jackson.databind.ObjectMapper;
 
 import java.util.Map;
 
+import static ch.guru.spring.ai.prompt.controller.constants.GiveClearInstructionsConstants.JSON_FORMAT_INSTRUCTIONS;
 import static ch.guru.spring.ai.prompt.controller.constants.GiveClearInstructionsConstants.PROMPT_ENUMERATE_INSTRUCTIONS;
 import static ch.guru.spring.ai.prompt.controller.constants.GiveClearInstructionsConstants.PROMPT_LIST_OF_CARS;
+import static ch.guru.spring.ai.prompt.controller.constants.GiveClearInstructionsConstants.XML_FORMAT_INSTRUCTIONS;
+import static ch.guru.spring.ai.prompt.controller.constants.GiveClearInstructionsConstants.YAML_FORMAT_INSTRUCTIONS;
 
 @Service
 @RequiredArgsConstructor
@@ -40,8 +43,15 @@ public class GiveClearInstructionsServiceImpl implements GiveClearInstructionsSe
 
     @Override
     public ChatResponse listCars(ResponseResultFormat format) {
-        String promptString = PROMPT_LIST_OF_CARS.replace("<%format%>", format.toString());
-        Prompt prompt = new Prompt(promptString);
+        String formatInstructions = switch (format) {
+            case XML -> XML_FORMAT_INSTRUCTIONS;
+            case JSON -> JSON_FORMAT_INSTRUCTIONS;
+            case YAML -> YAML_FORMAT_INSTRUCTIONS;
+        };
+
+        PromptTemplate promptTemplate = new PromptTemplate(PROMPT_LIST_OF_CARS);
+        Prompt prompt = promptTemplate
+            .create(Map.of("format", format.toString(), "format_instructions", formatInstructions));
 
         ChatResponse chatResponse = chatModel.call(prompt);
 
