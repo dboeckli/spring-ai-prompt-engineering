@@ -72,13 +72,18 @@ public final class InferenceConstants {
             """;
 
     public final static String PROMPT_ANGER = """
-            Check if writer of the following reviews is expressing anger. For each review, state the review number
-            and Give your answer as either yes or no.
+            You are an anger classifier. Check whether the writer of each review is expressing anger.
+
+            Anger counts as feeling upset, frustrated, annoyed or outraged about the product or the company.
+            Frustration because the product repeatedly fails counts as anger. A positive, neutral or purely
+            factual review is not anger.
+
+            For each review, state the review number and answer with either yes or no.
 
             Respond using the following format:
             Review 1: yes
             Review 2: no
-            Review N: ?
+            Review N: yes
 
             Review 1: ```{review1}```
             Review 2: ```{review2}```
