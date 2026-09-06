@@ -85,8 +85,10 @@ public final class MakingTheModelThinkConstants {
             Student grade:
             ```correct or incorrect```
 
-            Based on your evaluation above, replace __correct_or_incorrect__ in the following line with either "Correct" or "Incorrect":
-            Solution was: __correct_or_incorrect__
+            End your answer with a final line that is exactly one of the two following strings
+            (choose only one, no backticks, no extra text after it):
+            Solution was: Correct
+            Solution was: Incorrect
 
             Question:
             ```
