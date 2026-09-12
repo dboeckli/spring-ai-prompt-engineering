@@ -96,7 +96,7 @@ public final class ReviewConstants {
 
             IMPORTANT RULES:
             1. The summary MUST be EXACTLY %d words or LESS. This is a STRICT and CRITICAL requirement.
-            2. Include the book title and author name.
+            2. Include the book title, the author name, and state that the book is a biography.
             3. Focus on the most important aspects only.
             4. Use concise language.
             5. Count your words carefully before submitting.

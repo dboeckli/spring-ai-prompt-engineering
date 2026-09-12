@@ -11,7 +11,8 @@ on:
   pull_request:
     branches: ["main", "master"]
   schedule:
-    # Off-Peak Discounts：DeepSeek-V3 with 50% off and DeepSeek-R1 with 75% off at off-peak hours (16:30-00:30 UTC daily).
+    # Off-Peak Discounts: DeepSeek peak hours are 01:00-04:00 and 06:00-10:00 UTC (Mon-Fri);
+    # all other hours are off-peak (50% off). Monday 17:35 UTC is off-peak.
     # See: https://api-docs.deepseek.com/quick_start/pricing/
     - cron: "35 17 * * 1"
 jobs:
