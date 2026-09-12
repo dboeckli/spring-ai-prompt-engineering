@@ -115,6 +115,14 @@ public final class ReviewConstants {
             web page selling the book. You will be given 3 reviews. Create the summary based on the reviews and
             include information in the summary from all 3 reviews.
 
+            IMPORTANT RULES:
+            1. The summary MUST NOT exceed the word limit. This is a STRICT and CRITICAL requirement.
+            2. Include the book title and the author name.
+            3. State that the book is a biography.
+            4. Mention at least one theme such as innovation, technology, or the visionary mindset.
+            5. Do NOT use the word "Review" or "reviews". Write as if describing the book directly.
+            6. Count your words carefully before submitting.
+
             Summarize the reviews below, delimited by triple backticks, in at most %d words.
 
             Review: ```{review1}```
@@ -124,7 +132,6 @@ public final class ReviewConstants {
             Review 3: ```{review3}```
 
             CRITICAL: Your response MUST NOT exceed %d words under ANY circumstances. If your summary is longer, shorten it.
-            IMPORTANT: Do NOT use the word "Review" or "reviews" in your summary. Write as if describing the book directly.
 
             """
         .formatted(MAX_SUMMARY_REVIEW_PROMPT_3_WORDS, MAX_SUMMARY_REVIEW_PROMPT_3_WORDS);
