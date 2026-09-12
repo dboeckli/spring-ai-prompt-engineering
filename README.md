@@ -5,6 +5,31 @@ This project uses private Docker repositories and GitHub, requiring specific dep
 
 Application runs on port 8080/30080
 
+## Architecture Overview
+
+```mermaid
+graph LR
+    Client(["💻 Client\nBrowser / REST Client"])
+
+    subgraph App ["Spring Boot App :8080\nK8s NodePort :30080"]
+        direction TB
+        Controllers["REST Controllers\n/api/chat · /api/question\n/api/review · /api/inference\n/api/making-the-model-think\n/api/enumerate-instructions"]
+        Services["Prompt Services\nChatClientService · OpenAIService\nReviewService · InferenceService\nMakingTheModelThinkService\nGiveClearInstructionsService"]
+        SpringAI["Spring AI\nChatClient / ChatModel"]
+        Actuator["Actuator & OpenTelemetry\nhealth · metrics · traces"]
+
+        Controllers --> Services
+        Services --> SpringAI
+    end
+
+    subgraph External ["External Services"]
+        DeepSeek["DeepSeek API\ndeepseek-coder"]
+    end
+
+    Client <-->|"HTTP / JSON"| Controllers
+    SpringAI <-->|"HTTPS (DEEPSEEK_API_KEY)"| DeepSeek
+```
+
 ## AI Test Prompts
 
 A collection of AI test prompts can be found in the [AI-Test.md](AI-Test.md) file. These prompts were developed by Mathew Berman to test and evaluate the capabilities of different
