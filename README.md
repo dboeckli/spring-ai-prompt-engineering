@@ -158,16 +158,27 @@ Start (PowerShell) — multiline, with `--static-mcp idea`, pinned template vers
 (no re-download of cached dependencies):
 
 ```powershell
-sbx run opencode --name spring-ai-prompt-engineering `
-    --static-mcp idea `
+sbx run opencode `
     --kit "git+https://github.com/dboeckli/opencode-sandbox-kit.git#dir=opencode-agent" `
-    -t docker/sandbox-templates:opencode-docker-0.5.0 `
-    "C:\development\projects\spring-ai-prompt-engineering" `
-    "$env:USERPROFILE\.kube:ro" `       # optional: Kubernetes (kubectl/helm in Docker Desktop cluster)
-    "C:\development\maven-repo:ro"      # read-only host Maven cache (opencode-sandbox-kit #87)
+    --template docker/sandbox-templates:opencode-docker-0.5.0 `
+    --no-share-skills `
+    --static-mcp idea `
+    . `
+    "$env:USERPROFILE\.kube:ro" `
+    "C:\development\maven-repo:ro"
 ```
 
-Claude variant (Home): `sbx run claude --name spring-ai-prompt-engineering --static-mcp idea --kit "git+https://github.com/dboeckli/opencode-sandbox-kit.git#dir=opencode-agent" -t docker/sandbox-templates:claude-code-docker-0.5.0 "C:\development\projects\spring-ai-prompt-engineering" "C:\development\maven-repo:ro"`
+Claude variant (Home):
+
+```powershell
+sbx run claude `
+    --kit "git+https://github.com/dboeckli/opencode-sandbox-kit.git#dir=opencode-agent" `
+    --template docker/sandbox-templates:claude-code-docker-0.5.0 `
+    --no-share-skills `
+    --static-mcp idea `
+    . `
+    "C:\development\maven-repo:ro"
+```
 
 > **Sandbox quirk:** Before any `./mvnw` in the sandbox run `export npm_config_bin_links=false` (Spotless/prettier otherwise fails with EPERM on the mounted workspace). Beware: the integration test `InferenceServiceIT.testingForAnger` is flaky (LLM classification).
 
